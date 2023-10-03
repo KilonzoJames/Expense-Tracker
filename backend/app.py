@@ -1,9 +1,11 @@
-from flask import Flask, jsonify, session
+from functools import wraps
+from flask import Flask, jsonify, request, session
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from Models.WTFValidationForms.LoginForm import LoginForm
 from Models.WTFValidationForms.SignUpForm import SignUpForm
+from flask_wtf.csrf import CSRFProtect, generate_csrf
 from werkzeug.security import check_password_hash, generate_password_hash
 from Models.Category import Category
 from Models.Expense import Expense
@@ -19,8 +21,13 @@ ma = Marshmallow(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///Tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 
-migrate =Migrate(app, db)
+
+@app.route('/get_csrf_token', methods=['GET'])
+def get_csrf_token():
+    csrf_token = generate_csrf()
+    return jsonify({'csrf_token': csrf_token}), 200
 
 @app.route('/Login', methods=['POST'])
 def signIn():
