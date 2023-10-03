@@ -1,4 +1,4 @@
-from ..app import ma
+from ...app import ma
 from Models.UserExpense import UserExpense
 
 class UserSchema(ma.ModelSchema):
