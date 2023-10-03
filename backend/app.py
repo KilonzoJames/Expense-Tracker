@@ -19,6 +19,8 @@ app=Flask(__name__)
 CORS(app)
 ma = Marshmallow(app)
 
+migrate = Migrate(app, db)
+
 app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///Tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
