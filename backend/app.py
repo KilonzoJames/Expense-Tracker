@@ -2,6 +2,10 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
+from Models.Category import Category
+from Models.Expense import Expense
+from Models.User import User
+from Models.UserExpense import UserExpense
 
 from Models.Config import db
 
