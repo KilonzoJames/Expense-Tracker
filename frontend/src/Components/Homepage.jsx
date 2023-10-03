@@ -2,29 +2,15 @@ import React from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
 
-const transactions = [
-    {name: 'Money Transfer', amount: 440, date:'09:30 am'},
-    {name: 'Money Transfer', amount: 440, date:'09:30 am'},
-    {name: 'Money Transfer', amount: 440, date:'09:30 am'}
+const divs = [
+    {name: 'Total Income', amount: 2000, color: 'bg-green-400' },
+    {name: 'Total Expenses', amount: 1000, color: 'bg-red-600' },
 ]
-const tableData = transactions.map((tran, index) => {
-        return (
-            <tr key={index} className='p-8 m-24'>
-                <td className='gap-4 '>
-                    {tran.name}
-                </td><td className='gap-4'>
-                    {tran.amount}
-                </td>
-                <td className='gap-4'>
-                    {tran.date}
-                </td>
-            </tr>
-        )
-    })
-function Homepage() {
+
+function Homepage({isDarkMode, handleToggle}) {
   return (
     <>
-        <Navbar/>
+        <Navbar isDarkMode={isDarkMode} handleToggle={handleToggle}/>
         <main className='flex items-center justify-center my-12'>
             <div className='main border-sky-500 cursor-pointer w-96 h-80 shadow-2xl p-6  mx-auto my-12 bg-zinc-100 '>
                 <div className='relative left-0 w-full h-1/2 '>
@@ -39,21 +25,16 @@ function Homepage() {
                 </div>
             </div>
         </main>
-        <section className='h-screen text-xl lg:text-3xl'>
-            <div className="flex justify-center p-16 gap-12">
-                <table>
-                    <thead className='font-bold underline lg:p-4 lg:m-12'>
-                        <tr>
-                            <th>Transactions</th>
-                            <th>See All</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tableData}
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        <ul className="flex flex-wrap justify-center gap-4 mx-4 my-44">
+                {divs.map((div, index) => {
+                    return (
+                        <li key={index} className={`border border-zinc-950 ${div.color} rounded-md cursor-pointer hover:text-white py-4 w-[12rem] transition-all duration-400`}>{div.name}
+                        <br/>
+                        {div.amount}
+                        </li>
+                    )
+                } )}
+            </ul>
         <Footer/>
     </>
   )

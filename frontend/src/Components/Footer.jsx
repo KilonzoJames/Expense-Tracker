@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FaArrowUp } from 'react-icons/fa'
+import {animateScroll} from 'react-scroll'
 
 const links = [
     {to: 'Privacy Policy', name: 'Privacy Policy'},
@@ -27,7 +29,10 @@ function Footer() {
                 }
             </ul>
         </div>
-        <hr className='divider'/>
+        <div className='arrow text-blue-700 text-5xl absolute right-0 top-0' onClick={() => animateScroll.scrollToTop()}>
+            <FaArrowUp />
+        </div>
+        <hr className='broken-hr'/>
         <div className='my-2 p-2'>
             <div>
                 <img/>

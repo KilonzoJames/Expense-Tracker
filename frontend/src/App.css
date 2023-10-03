@@ -11,3 +11,24 @@ section {
 .main {
   border-radius: 20%;
 }
+.App.light .light {
+	color: #fff;
+	background: linear-gradient(to bottom left, #1da1f2, #6253e8);
+	box-shadow: none;
+	transition: all 1s;
+}
+
+.dark {
+	box-shadow: 30px 20px 5px #232135;
+	background-color: #181721;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	color: #fff;
+	transition: all 0.5s;
+}
+.broken-hr {
+  border: none;
+  height: 2px; /* Adjust the height as needed */
+  background-image: linear-gradient(90deg, transparent 40%, #000 40%, #000 60%, transparent 60%);
+  background-size: 6px 2px; /* Adjust the size of the dashes */
+}

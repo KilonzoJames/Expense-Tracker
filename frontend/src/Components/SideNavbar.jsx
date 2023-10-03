@@ -7,10 +7,6 @@ function SideNavbar({links}) {
   useEffect(() => {
     M.Sidenav.init(sideNavRef.current);
   }, []);
-  // const handleNav = () => {
-  //   const sidenavInstance = M.Sidenav.getInstance(sidenavRef.current);
-  //   sidenavInstance.close();
-  // };
   
   return (
         <ul 

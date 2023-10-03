@@ -1,11 +1,11 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
+
 const links = [
-    {to: '/', name: 'Login'},
     {to: '/signup', name: 'Sign-Up'},
-    {to: '/homepage', name: 'Homepage'},
     {to: '/history', name: 'History'},
+    {to: '/', name: 'Log-out'},
 ]
 function Navlinks() {
   return (
