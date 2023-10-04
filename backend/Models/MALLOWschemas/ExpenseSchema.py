@@ -1,4 +1,4 @@
-from ...app import ma
+from app import ma
 from Models.Expense import Expense
 
 class ExpenseSchema(ma.ModelSchema):

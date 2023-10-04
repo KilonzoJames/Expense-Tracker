@@ -5,7 +5,7 @@ from flask_marshmallow import Marshmallow
 from Models.WTFValidationForms.LoginForm import LoginForm
 from Models.WTFValidationForms.SignUpForm import SignUpForm
 from Models.WTFValidationForms.ExpenseForm import ExpenseForm
-from Models.MALLOWschemas.ExpenseSchema import ExpenseSchema
+# from Models.MALLOWschemas.ExpenseSchema import ExpenseSchema
 from flask_wtf.csrf import generate_csrf
 from werkzeug.security import check_password_hash, generate_password_hash
 from Models.Expense import Expense
@@ -25,6 +25,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///Tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 
+class ExpenseSchema(ma.Schema):
+    class Meta:
+        model = Expense
 
 @app.route('/get_csrf_token', methods=['GET'])
 def get_csrf_token():
@@ -76,7 +79,9 @@ def get_Expenses():
     if request.method == 'GET':
         expenses = Expense.query.all()
         expenseSchema = ExpenseSchema(many=True)
-        results = expenseSchema.dump(expenses).data
+        results = expenseSchema.dump(expenses)
+        if not results:
+            return jsonify({'message':'no expenses found'})
         return jsonify({'expense': results})
     if request.method == 'POST':
         try:
@@ -100,23 +105,23 @@ def get_Expenses():
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-@app.route('expense/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+@app.route('/expense/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def get_expense(id):
     if request.method == 'GET':
         expense = Expense.query.get(id)
         if not expense:
             return jsonify({'Errors': 'Expense not found'})
         expenseSchema = ExpenseSchema()
-        results = expenseSchema.dump(expense).data
+        results = expenseSchema.dump(expense)
         return jsonify({'expense': results})
     if request.method == 'PATCH':
         try:
-            form = form = ExpenseForm()
+            form = ExpenseForm()
             if form.validate_on_submit():
                 descreption = form.descreption.data
                 amount = form.amount.data
 
-                expense = Expense.query.get()
+                expense = Expense.query.get(id)
                 if descreption:
                     expense.descreption = descreption
                 if amount:
@@ -127,18 +132,18 @@ def get_expense(id):
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-        if request.method == 'DELETE':
-            try:
-                expense = Expense.query.get(id)
-                if not expense:
-                    return jsonify({'error': 'Expense not found'}), 404
+    if request.method == 'DELETE':
+        try:
+            expense = Expense.query.get(id)
+            if not expense:
+                return jsonify({'error': 'Expense not found'}), 404
 
-                db.session.delete(expense)
-                db.session.commit()
+            db.session.delete(expense)
+            db.session.commit()
 
-                return jsonify({'message': 'Expense deleted successfully'})
-            except Exception as e:
-                return jsonify({'error': str(e)}), 400
+            return jsonify({'message': 'Expense deleted successfully'})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
 
 
 db.init_app(app)

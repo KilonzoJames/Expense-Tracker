@@ -7,7 +7,6 @@ class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     descreption = db.Column(db.String(200))
     amount  = db.Column(db.Float)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     created_at = db.Column(DateTime, default=datetime.utcnow)
     updated_at = db.Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
