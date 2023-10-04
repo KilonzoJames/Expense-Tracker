@@ -73,7 +73,7 @@ function handleSubmit(e) {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         />
-                        <span onClick={toggleVisibility} className="toggle-password absolute top-2 right-2 cursor-pointer">
+                        <span onClick={toggleVisibility} className="toggle-password absolute text-white text-xl top-2 right-2 cursor-pointer">
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </span>
                     </div>
