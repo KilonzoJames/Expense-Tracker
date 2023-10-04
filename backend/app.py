@@ -89,6 +89,14 @@ def get_Expenses():
             expense = Expense(description=descreption, amount=amount)
             db.session.add(expense)
             db.session.commit()
+
+            user_id = session['user_id']
+            user = User.query.get(user_id)
+
+            userExpense = UserExpense(user=user, expense=expense)
+            db.session.add(userExpense)
+            db.session.commit()
+
             return jsonify({'message':'Expense added succesfully'}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 400
