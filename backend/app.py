@@ -5,6 +5,7 @@ from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from Models.WTFValidationForms.LoginForm import LoginForm
 from Models.WTFValidationForms.SignUpForm import SignUpForm
+from Models.WTFValidationForms.ExpenseForm import ExpenseForm
 from Models.MALLOWschemas.ExpenseSchema import ExpenseSchema
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -72,12 +73,26 @@ def signUp():
         return jsonify({'status': 'Registration successful'})
     return jsonify({'error': form.errors}), 400
 
-@app.route('/expenses', methods=['GET'])
+@app.route('/expenses', methods=['GET', 'POST'])
 def get_Expenses():
-    expenses = Expense.query.all()
-    expenseSchema = ExpenseSchema(many=True)
-    results = expenseSchema.dump(expenses).data
-    return jsonify({'expense': results})
+    if request.method == 'GET':
+        expenses = Expense.query.all()
+        expenseSchema = ExpenseSchema(many=True)
+        results = expenseSchema.dump(expenses).data
+        return jsonify({'expense': results})
+    try:
+        form = ExpenseForm()
+        if form.validate_on_submit():
+            descreption = form.descreption.data
+            amount = form.amount.data
+
+            expense = Expense(description=descreption, amount=amount)
+            db.session.add(expense)
+            db.session.commit()
+            return jsonify({'message':'Expense added succesfully'}), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
 
 
 db.init_app(app)
