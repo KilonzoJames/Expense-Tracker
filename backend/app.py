@@ -1,4 +1,3 @@
-from functools import wraps
 from flask import Flask, jsonify, request, session
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -7,9 +6,8 @@ from Models.WTFValidationForms.LoginForm import LoginForm
 from Models.WTFValidationForms.SignUpForm import SignUpForm
 from Models.WTFValidationForms.ExpenseForm import ExpenseForm
 from Models.MALLOWschemas.ExpenseSchema import ExpenseSchema
-from flask_wtf.csrf import CSRFProtect, generate_csrf
+from flask_wtf.csrf import generate_csrf
 from werkzeug.security import check_password_hash, generate_password_hash
-from Models.Category import Category
 from Models.Expense import Expense
 from Models.User import User
 from Models.UserExpense import UserExpense
