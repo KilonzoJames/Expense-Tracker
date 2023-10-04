@@ -31,7 +31,7 @@ function Footer() {
                 }
             </ul>
         </div>
-        <div className='arrow text-blue-700 text-5xl absolute right-0 top-0' onClick={() => animateScroll.scrollToTop()}>
+        <div className='arrow text-white text-5xl absolute right-0 top-0' onClick={() => animateScroll.scrollToTop()}>
             <FaArrowUp />
         </div>
         <hr className='broken-hr'/>

@@ -2,6 +2,7 @@ import Navbar from './Navbar'
 import { FaTrash } from 'react-icons/fa'
 import { useState } from "react";
 import {  useParams } from "react-router-dom";
+import LineChart from './LineChart';
 
 const transactions = [
     {name: 'Money Transfer', amount: 440, date:'09:30 am'},
@@ -73,11 +74,8 @@ function History() {
                     </div>
                 </div>
             </section>
-            <div>
-                Statistics
-                Graph Data
-            </div>
         </div>
+        <LineChart/>
     </>
   )
 }
