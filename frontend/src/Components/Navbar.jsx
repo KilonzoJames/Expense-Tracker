@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import SideNavbar from './SideNavbar'
 import Navlinks from './Navlinks'
 import { FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 function Navbar({isDarkMode, handleToggle}) {
 const [open, setOpen] = useState(true) 
@@ -9,7 +10,7 @@ const [open, setOpen] = useState(true)
   return (
     <div>
         <div className={`header ${!isDarkMode ? 'light' : 'dark'}`}>
-            <nav className='navbar fixed top-0 left-0 w-full h-auto px-12 flex justify-between items-center bg-zinc-300'>
+            <nav className='navbar fixed top-0 left-0 w-full h-auto px-12 flex justify-between items-center shadow-md md:shadow-lg lg:shadow-xl'>
                 <a href="#" className='text-4xl font-bold p-4'>Home</a>
                 <ul className="hidden lg:flex items-center text-2xl p-4">
                     <Navlinks/>
@@ -32,5 +33,8 @@ const [open, setOpen] = useState(true)
     </div>
   )
 }
-
+Navbar.propTypes = {
+    isDarkMode: PropTypes.bool.isRequired, // Example: isDarkMode should be a boolean and is required
+    handleToggle: PropTypes.func.isRequired, // Example: handleToggle should be a function and is required
+  };
 export default Navbar

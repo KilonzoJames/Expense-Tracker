@@ -7,14 +7,14 @@ const transactions = [
     {name: 'Money Transfer', amount: 440, date:'09:30 am'}
 ]
 function deleteBot(orderToDelete){
-    const orderArray=transactions.filter((order)=>orderToDelete!==order)
+    const orderArray=transactions.filter((tran)=>orderToDelete!==tran)
     deleteMethod(orderToDelete)
     .then(() => {
       setOrders(orderArray);
     })
     }
-function deleteMethod(order){
-    const url=`https://server-dvs6.onrender.com/orders/${order.id}`;
+function deleteMethod(tran){
+    const url=`https://history/${tran.id}`;
     const method={
       method: "DELETE"
     }
@@ -43,7 +43,7 @@ function History() {
   return (
     <>
         <Navbar/>
-        <div >
+        <div className='m-20' >
             <h2 className='text-4xl'>Overview</h2>
             <section className='h-screen text-xl lg:text-3xl'>
                 <div className="flex justify-center p-16">

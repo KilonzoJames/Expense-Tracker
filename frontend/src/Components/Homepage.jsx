@@ -1,6 +1,6 @@
 import Navbar from './Navbar'
 import Footer from './Footer'
-
+import PropTypes from 'prop-types';
 
 const divs = [
     {name: 'Incomes', amount: 2000, color: 'bg-green-400' },
@@ -9,10 +9,10 @@ const divs = [
 
 function Homepage({isDarkMode, handleToggle}) {
   return (
-    <>
+    <div className='h-screen'>
         <Navbar isDarkMode={isDarkMode} handleToggle={handleToggle}/>
         <main className='flex items-center justify-center my-12'>
-            <div className='main border-sky-500 cursor-pointer w-96 h-80 shadow-2xl p-6  mx-auto my-12 bg-zinc-100 '>
+            <div className='main border-sky-500 cursor-pointer w-96 h-80 shadow-2xl p-6  mx-auto my-12'>
                 <div className='relative left-0 w-full h-1/2 '>
                     <span className='absolute left-0 top-5 text-2xl'>Total Balance</span> 
                     <span className='text-sm absolute right-4 top-2'>KSH</span>
@@ -36,8 +36,11 @@ function Homepage({isDarkMode, handleToggle}) {
             } )}
         </ul>
         <Footer/>
-    </>
+    </div>
   )
 }
-
+Homepage.propTypes = {
+    isDarkMode: PropTypes.bool.isRequired, // Example: isDarkMode should be a boolean and is required
+    handleToggle: PropTypes.func.isRequired, // Example: handleToggle should be a function and is required
+  };
 export default Homepage

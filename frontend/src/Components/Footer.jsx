@@ -11,7 +11,7 @@ const links = [
 
 function Footer() {
   return (
-    <footer className='fixed bottom-0 left-0 w-full text-2xl h-auto bg-zinc-400 text-fuchsia-50'>
+    <footer className='fixed bottom-0 left-0 w-full text-2xl h-auto text-fuchsia-50 shadow-md md:shadow-lg lg:shadow-xl'>
          <div className="bg-purple-500 text-white rounded-full mx-auto p-3 w-16 h-16 text-4xl cursor-pointer absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <FaPlus />
         </div>

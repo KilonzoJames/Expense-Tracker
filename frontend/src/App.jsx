@@ -7,7 +7,7 @@ import Homepage from './Components/Homepage';
 import History from './Components/History';
 
 function App() {
-  const {isDarkMode, setIsDarkMode} = useState(true)
+  const [isDarkMode, setIsDarkMode] = useState(true)
   function handleToggle(){
     setIsDarkMode(prev =>!prev)
   }
@@ -16,7 +16,10 @@ function App() {
         <Routes>
             <Route exact path="/" element={<Login/>} />
             <Route path='/signup' element={<SignUp/>} />
-            <Route path='/homepage' element={<Homepage/>} isDarkMode={isDarkMode} handleToggle={handleToggle}/>
+            <Route 
+            path='/homepage' 
+            element={<Homepage isDarkMode={isDarkMode} handleToggle={handleToggle}/>} 
+            />
             <Route path='/history' element={<History/>} />
         </Routes>
     </BrowserRouter>
