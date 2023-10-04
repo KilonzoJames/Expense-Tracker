@@ -80,27 +80,67 @@ def get_Expenses():
         expenseSchema = ExpenseSchema(many=True)
         results = expenseSchema.dump(expenses).data
         return jsonify({'expense': results})
-    try:
-        form = ExpenseForm()
-        if form.validate_on_submit():
-            descreption = form.descreption.data
-            amount = form.amount.data
+    if request.method == 'POST':
+        try:
+            form = ExpenseForm()
+            if form.validate_on_submit():
+                descreption = form.descreption.data
+                amount = form.amount.data
 
-            expense = Expense(description=descreption, amount=amount)
-            db.session.add(expense)
-            db.session.commit()
+                expense = Expense(description=descreption, amount=amount)
+                db.session.add(expense)
+                db.session.commit()
 
-            user_id = session['user_id']
-            user = User.query.get(user_id)
+                user_id = session['user_id']
+                user = User.query.get(user_id)
 
-            userExpense = UserExpense(user=user, expense=expense)
-            db.session.add(userExpense)
-            db.session.commit()
+                userExpense = UserExpense(user=user, expense=expense)
+                db.session.add(userExpense)
+                db.session.commit()
 
-            return jsonify({'message':'Expense added succesfully'}), 201
-    except Exception as e:
-        return jsonify({'error': str(e)}), 400
+                return jsonify({'message':'Expense added succesfully'}), 201
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
 
+@app.route('expense/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+def get_expense(id):
+    if request.method == 'GET':
+        expense = Expense.query.get(id)
+        if not expense:
+            return jsonify({'Errors': 'Expense not found'})
+        expenseSchema = ExpenseSchema()
+        results = expenseSchema.dump(expense).data
+        return jsonify({'expense': results})
+    if request.method == 'PATCH':
+        try:
+            form = form = ExpenseForm()
+            if form.validate_on_submit():
+                descreption = form.descreption.data
+                amount = form.amount.data
+
+                expense = Expense.query.get()
+                if descreption:
+                    expense.descreption = descreption
+                if amount:
+                    expense.amount = amount
+                db.session.add(expense)
+                db.session.commit()
+                return jsonify({'message': 'Expense updated successfully'})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
+
+        if request.method == 'DELETE':
+            try:
+                expense = Expense.query.get(id)
+                if not expense:
+                    return jsonify({'error': 'Expense not found'}), 404
+
+                db.session.delete(expense)
+                db.session.commit()
+
+                return jsonify({'message': 'Expense deleted successfully'})
+            except Exception as e:
+                return jsonify({'error': str(e)}), 400
 
 
 db.init_app(app)
