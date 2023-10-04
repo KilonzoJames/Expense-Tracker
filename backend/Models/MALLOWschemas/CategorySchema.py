@@ -1,6 +1,10 @@
-from ...app import ma
+import sys
+import app
+
+sys.path.append('/home/user/Moringa/Phase5/Expense-Tracker/backend/')
+
 from Models.Category import Category
 
-class UserSchema(ma.ModelSchema):
+class UserSchema(app.ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Category
