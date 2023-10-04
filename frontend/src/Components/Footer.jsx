@@ -1,6 +1,5 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaArrowUp } from 'react-icons/fa'
+import { FaArrowUp, FaPlus } from 'react-icons/fa'
 import {animateScroll} from 'react-scroll'
 
 const links = [
@@ -13,6 +12,9 @@ const links = [
 function Footer() {
   return (
     <footer className='fixed bottom-0 left-0 w-full text-2xl h-auto bg-zinc-400 text-fuchsia-50'>
+         <div className="bg-purple-500 text-white rounded-full mx-auto p-3 w-16 h-16 text-4xl cursor-pointer absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <FaPlus />
+        </div>
         <div>
             <ul className='flex justify-center my-2 p-2'>
                 {
@@ -33,13 +35,8 @@ function Footer() {
             <FaArrowUp />
         </div>
         <hr className='broken-hr'/>
-        <div className='my-2 p-2'>
-            <div>
-                <img/>
-            </div>
-            <p>
-                &copy; {new Date().getFullYear()} All rights reserved
-            </p>
+        <div className="my-2 p-2 relative text-center">
+            <p>&copy; {new Date().getFullYear()} All rights reserved</p>
         </div>
     </footer>
   )

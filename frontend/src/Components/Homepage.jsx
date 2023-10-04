@@ -1,10 +1,10 @@
-import React from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
 
+
 const divs = [
-    {name: 'Total Income', amount: 2000, color: 'bg-green-400' },
-    {name: 'Total Expenses', amount: 1000, color: 'bg-red-600' },
+    {name: 'Incomes', amount: 2000, color: 'bg-green-400' },
+    {name: 'Expenses', amount: 1000, color: 'bg-red-600' },
 ]
 
 function Homepage({isDarkMode, handleToggle}) {
@@ -25,16 +25,16 @@ function Homepage({isDarkMode, handleToggle}) {
                 </div>
             </div>
         </main>
-        <ul className="flex flex-wrap justify-center gap-4 mx-4 my-44">
-                {divs.map((div, index) => {
-                    return (
-                        <li key={index} className={`border border-zinc-950 ${div.color} rounded-md cursor-pointer hover:text-white py-4 w-[12rem] transition-all duration-400`}>{div.name}
+        <ul className="flex flex-wrap justify-center gap-4 mx-4 my-4">
+            {divs.map((div, index) => {
+                return (
+                    <li key={index} className={`border border-zinc-950 ${div.color} rounded-md cursor-pointer hover:text-white py-4 w-[12rem] transition-all duration-400`}>{div.name}
                         <br/>
-                        {div.amount}
-                        </li>
-                    )
-                } )}
-            </ul>
+                    {div.amount}
+                    </li>
+                )
+            } )}
+        </ul>
         <Footer/>
     </>
   )
