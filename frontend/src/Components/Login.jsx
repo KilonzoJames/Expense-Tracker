@@ -1,15 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import  { useEffect } from 'react';
-
 
 function Login() {
-    useEffect(() => {
-        document.body.classList.add('login-page-body');
-            return () => {
-          document.body.classList.remove('login-page-body');
-        };
-      }, []);
-    
   return (
     <div>
       <section>

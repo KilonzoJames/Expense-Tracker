@@ -1,5 +1,5 @@
 import './App.css'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
@@ -7,10 +7,14 @@ import Homepage from './Components/Homepage';
 import History from './Components/History';
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(true)
+  const [isDarkMode, setIsDarkMode] = useState(false)
   function handleToggle(){
     setIsDarkMode(prev =>!prev)
   }
+  useEffect(() => {
+    document.body.className = isDarkMode ? 'dark' : 'light';
+  }, [isDarkMode]);
+
   return (
     <BrowserRouter>
         <Routes>

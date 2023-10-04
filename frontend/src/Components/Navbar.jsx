@@ -11,23 +11,25 @@ const [open, setOpen] = useState(true)
     <div>
         <div className={`header ${!isDarkMode ? 'light' : 'dark'}`}>
             <nav className='navbar fixed top-0 left-0 w-full h-auto px-12 flex justify-between items-center shadow-md md:shadow-lg lg:shadow-xl'>
-                <a href="#" className='text-4xl font-bold p-4'>Home</a>
-                <ul className="hidden lg:flex items-center text-2xl p-4">
-                    <Navlinks/>
-                </ul>
-                <div className='hidden lg:block text-4xl' onClick={handleToggle}>
-                        {isDarkMode ? <FaSun /> : <FaMoon />}
-                </div>
-                <div className='icons lg:hidden flex items-center gap-10 text-4xl'>
-                    {open ? (
-                    <FaBars onClick={() => setOpen(!open)} />
-                    ) : (
-                    <FaTimes onClick={() => setOpen(!open)} />
-                    )}
+                <a href="/homepage" className='text-4xl font-bold p-4'>Home</a>
+                <div className='flex items-center'>
+                    <ul className="hidden lg:flex items-center text-2xl p-4">
+                        <Navlinks/>
+                    </ul>
+                    <div className='icons lg:hidden flex items-center gap-10 text-4xl p-4'>
+                        {open ? (
+                        <FaBars onClick={() => setOpen(!open)} />
+                        ) : (
+                        <FaTimes onClick={() => setOpen(!open)} />
+                        )}
+                    </div>
+                    <div className='text-4xl' onClick={handleToggle}>
+                            {isDarkMode ? <FaSun /> : <FaMoon />}
+                    </div>
                 </div>
             </nav>
         </div>
-        <div className='small' style={{display: open?'none':'flex'}}>      
+        <div className='small lg:hidden' style={{display: open?'none':'block'}}>      
             <SideNavbar/>
         </div>
     </div>

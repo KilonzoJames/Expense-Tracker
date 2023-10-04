@@ -44,15 +44,15 @@ function History() {
     <>
         <Navbar/>
         <div className='m-20' >
-            <h2 className='text-4xl'>Overview</h2>
+            <h2 className='text-4xl'>Transaction History</h2>
             <section className='h-screen text-xl lg:text-3xl'>
-                <div className="flex justify-center p-16">
+                <div className="flex justify-center p-2">
                     <div className="table-container lg:w-full">
-                        <table className="w-full lg:w-max">
-                            <thead className='font-bold underline lg:p-4 lg:m-12'>
+                        <table className="border-0 border-collapse w-full">
+                            <thead className='lg:p-4 lg:m-12'>
                                 <tr>
-                                    <th>Transactions</th>
-                                    <th>See All</th>
+                                    <th className='underline'>Transactions</th>
+                                    <th className='underline'>See All</th>
                                     </tr>
                                     <tr>
                                     <th scope="col">Transaction</th>

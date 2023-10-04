@@ -10,7 +10,7 @@ function SideNavbar({links}) {
   
   return (
         <ul 
-        className="block bg-zinc-200 w-1/2 h-screen lg:h-full fixed top-0 left-0 overflow-y-auto text-2xl"
+        className="block bg-zinc-200 w-1/2 h-screen lg:h-full fixed top-0 left-0 overflow-y-hidden text-2xl"
         ref={sideNavRef}>
             {/* <li><a href='#' > <i className="large material-icons">menu</i> </a></li> */}
             <Navlinks/>

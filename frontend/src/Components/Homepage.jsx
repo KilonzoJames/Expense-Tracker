@@ -9,6 +9,7 @@ const divs = [
 
 function Homepage({isDarkMode, handleToggle}) {
   return (
+<>
     <div className='h-screen'>
         <Navbar isDarkMode={isDarkMode} handleToggle={handleToggle}/>
         <main className='flex items-center justify-center my-12'>
@@ -28,19 +29,23 @@ function Homepage({isDarkMode, handleToggle}) {
         <ul className="flex flex-wrap justify-center gap-4 mx-4 my-4">
             {divs.map((div, index) => {
                 return (
-                    <li key={index} className={`border border-zinc-950 ${div.color} rounded-md cursor-pointer hover:text-white py-4 w-[12rem] transition-all duration-400`}>{div.name}
+                    <li 
+                    key={index} className={`border border-zinc-950 ${div.color} rounded-md cursor-pointer hover:text-white py-4 w-[12rem] transition-all duration-400`}
+                    >
+                        {div.name}
                         <br/>
-                    {div.amount}
-                    </li>
+                        {div.amount}
+                        </li>
                 )
-            } )}
+            })}
         </ul>
-        <Footer/>
     </div>
+    <Footer/>
+</>
   )
 }
 Homepage.propTypes = {
-    isDarkMode: PropTypes.bool.isRequired, // Example: isDarkMode should be a boolean and is required
-    handleToggle: PropTypes.func.isRequired, // Example: handleToggle should be a function and is required
+    isDarkMode: PropTypes.bool.isRequired, 
+    handleToggle: PropTypes.func.isRequired, 
   };
 export default Homepage

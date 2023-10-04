@@ -1,13 +1,4 @@
-import  { useEffect } from 'react';
-
 function SignUp() {
-
-    useEffect(() => {
-        document.body.classList.add('signup-page-body');
-            return () => {
-          document.body.classList.remove('signup-page-body');
-        };
-      }, []);
     return (
         <section >
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
