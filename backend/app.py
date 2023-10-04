@@ -5,6 +5,7 @@ from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from Models.WTFValidationForms.LoginForm import LoginForm
 from Models.WTFValidationForms.SignUpForm import SignUpForm
+from Models.MALLOWschemas.ExpenseSchema import ExpenseSchema
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from werkzeug.security import check_password_hash, generate_password_hash
 from Models.Category import Category
@@ -30,6 +31,14 @@ app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 def get_csrf_token():
     csrf_token = generate_csrf()
     return jsonify({'csrf_token': csrf_token}), 200
+
+def is_authenticated():
+    return 'user_id' in session
+
+@app.before_request
+def check_authentication():
+    if request.endpoint not in ('login', 'signup') and not is_authenticated():
+        return jsonify({'error': 'Authentication required'}), 401
 
 @app.route('/Login', methods=['POST'])
 def signIn():
@@ -62,6 +71,13 @@ def signUp():
 
         return jsonify({'status': 'Registration successful'})
     return jsonify({'error': form.errors}), 400
+
+@app.route('/expenses', methods=['GET'])
+def get_Expenses():
+    expenses = Expense.query.all()
+    expenseSchema = ExpenseSchema(many=True)
+    results = expenseSchema.dump(expenses).data
+    return jsonify({'expense': results})
 
 
 db.init_app(app)
