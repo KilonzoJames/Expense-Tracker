@@ -1,42 +1,84 @@
-#root {
-  max-width: 1280px;
+body {
+  background: linear-gradient(to bottom left, #1da1f2, #6253e8);
   margin: 0 auto;
   padding: 2rem;
+  font-family: 'Times New Roman', Times, serif;
+  height: 100vh;
   text-align: center;
 }
+input, textarea {
+  caret-color: rgb(115, 239, 115); 
+}
+DIV[data-lastpass-icon-root] {
+  display: none !important; /* This disables LastPass */
+}
+.login-page-body {
+  padding: 12rem ;
+}
+.signup-page-body {
+  padding: 12rem !important;
+}
+ul {
+  z-index: 9999;
+}
+footer {
+  z-index: 999; /* A higher value than the content */
+}
+nav{
+	/* z-index: 101; */
+}
+table{
+  font-family: monospace;
+}
+.main {
+  border-radius: 20%;
+}
+/* Light Mode Styles */
+body.light {
+  background: linear-gradient(to bottom left, #1da1f2, #6253e8);
+  color: #000;
+  transition: all 0.5s;
+}
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body.light .light {
+  color: #fff;
+  background: linear-gradient(to bottom left, #1da1f2, #6253e8);
+  box-shadow: none;
+  transition: all 1s;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Dark Mode Styles */
+body.dark {
+  background: #1d4ed8;
+  color: #fff;
+  transition: all 0.5s;
+  font-size: 18px;
+  padding: 12px;
+}
+
+.broken-hr {
+  border: none;
+  height: 2px; /* Adjust the height as needed */
+  background-image: linear-gradient(90deg, transparent 40%, #000 40%, #000 60%, transparent 60%);
+  background-size: 6px 2px; /* Adjust the size of the dashes */
+}
+.custom-pulse {
+  animation: custom-pulse-animation 1s infinite ease-in-out;
+}
+
+@keyframes custom-pulse-animation {
+  0% {
+    transform: scale(1);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
   }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+/* .navbar{
+	background: var(--gradient);
+	color: #f5f5f5;
+  background-color: lightskyblue;
+}  */
