@@ -9,16 +9,29 @@ const [username, setUsername] = useState("");
 const [showPassword, setShowPassword] = useState(false);
 const navigate = useNavigate();
 
+const fetchCSRF = async()=>{
+  try{
+    const res = await fetch('http://127.0.0.1:5555/get_csrf_token');
+    const data = await res.json();
+    const csrfToken = data.csrf_token
+    return csrfToken
+  }catch(error){
+    console.log('err occured')
+  }
+}
+
 const toggleVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
-function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    // const token = await fetchCSRF()
     const formData = {
-        username: username,
-        password: password,
+        'username': username,
+        'password': password,
     };
-    fetch("/Login", {
+
+    fetch("http://127.0.0.1:5555/Login", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
@@ -83,7 +96,8 @@ function handleSubmit(e) {
                   type="submit"
                   className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
-                  <NavLink to="/homepage">Sign in</NavLink>
+                  {/* <NavLink to="/homepage">Sign in</NavLink> */}
+                  SignIn
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{' '}

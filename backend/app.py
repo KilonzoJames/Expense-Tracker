@@ -3,8 +3,9 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from marshmallow import fields
-from Models.WTFValidationForms import LoginForm
-from Models.WTFValidationForms import SignUpForm
+# from Models.WTFValidationForms import LoginForm
+from Models.WTFValidationForms.LoginForm import LoginForm
+from Models.WTFValidationForms.SignUpForm import SignUpForm
 from Models.WTFValidationForms import ExpenseForm
 # from Models.MALLOWschemas import ExpenseSchema
 from flask_wtf.csrf import generate_csrf
@@ -27,50 +28,62 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 
 class ExpenseSchema(ma.SQLAlchemyAutoSchema):
-    users = fields.Nested('UserSchema', many=True, only=('id', 'username'))
+    users = fields.Method("get_users")
     class Meta:
         model = Expense
         include_fk = True
 
+    def get_users(self, obj):
+        user_expenses = obj.users
+        users = [user_expense.users for user_expense in user_expenses]
+        return UserSchema(many=True).dump(users)
+
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
+        exclude = ('password', )
 
-@app.route('/get_csrf_token', methods=['GET'])
-def get_csrf_token():
-    csrf_token = generate_csrf()
-    return jsonify({'csrf_token': csrf_token}), 200
+# @app.route('/get_csrf_token', methods=['GET'])
+# def get_csrf_token():
+#     csrf_token = generate_csrf()
+#     return jsonify({'csrf_token': csrf_token}), 200
 
-def is_authenticated():
-    return 'user_id' in session
+# def is_authenticated():
+#     return 'user_id' in session
 
-@app.before_request
-def check_authentication():
-    if request.endpoint not in ('login', 'signup') and not is_authenticated():
-        return jsonify({'error': 'Authentication required'}), 401
+# @app.before_request
+# def check_authentication():
+#     if request.endpoint in ('Login', '/signup'):
+#         return jsonify({'error': 'Authentication required'}), 401
 
 @app.route('/Login', methods=['POST'])
 def signIn():
-    form = LoginForm()
+    # form = LoginForm()
 
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
+    # if form.validate_on_submit():
+    #     username = form.username.data
+    #     password = form.password.data
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
 
-        user = User.query.filter_by(username = username).first()
-        if user and check_password_hash(user.password, password):
-            session['user_id'] = user.id
-            return jsonify({'status':'Authentication successful'})
-        else:
-            return jsonify({'error': 'Invalid username or password'}), 401
-    return jsonify({'error':'invalid data'}), 400
+    user = User.query.filter_by(username = username).first()
+    if user and check_password_hash(user.password, password):
+        session['user_id'] = user.id
+        return jsonify({'status':'Authentication successful'})
+    else:
+        return jsonify({'error': 'Invalid username or password'}), 401
+    # return jsonify({'error':'invalid data'}), 400
 
 @app.route('/Signup', methods=['POST'])
 def signUp():
-    form = SignUpForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
+    # form = SignUpForm()
+    # if form.validate_on_submit():
+    #     username = form.username.data
+    #     password = form.password.data
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
 
         hashed_password = generate_password_hash(password)
         newUser = User(username=username, password=hashed_password)
@@ -79,7 +92,7 @@ def signUp():
         db.session.commit()
 
         return jsonify({'status': 'Registration successful'})
-    return jsonify({'error': form.errors}), 400
+    # return jsonify({'error': form.errors}), 400
 
 @app.route('/expenses', methods=['GET', 'POST'])
 def get_Expenses():
@@ -93,10 +106,13 @@ def get_Expenses():
         return jsonify({'expense': results})
     if request.method == 'POST':
         try:
-            form = ExpenseForm()
-            if form.validate_on_submit():
-                descreption = form.descreption.data
-                amount = form.amount.data
+            # form = ExpenseForm()
+            # if form.validate_on_submit():
+            #     descreption = form.descreption.data
+            #     amount = form.amount.data
+                data = request.get_json()
+                descreption = data.get('descreption')
+                amount = data.get('amount')
 
                 expense = Expense(description=descreption, amount=amount)
                 db.session.add(expense)

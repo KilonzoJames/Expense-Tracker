@@ -14,7 +14,7 @@ function handleSubmit(e) {
         username: username,
         password: password,
     };
-    fetch("/Signup", {
+    fetch("http://127.0.0.1:5555/Signup", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
