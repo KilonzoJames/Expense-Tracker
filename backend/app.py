@@ -25,9 +25,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///Tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 
-class ExpenseSchema(ma.Schema):
+class ExpenseSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Expense
+        include_fk = True
 
 @app.route('/get_csrf_token', methods=['GET'])
 def get_csrf_token():
@@ -80,6 +81,7 @@ def get_Expenses():
         expenses = Expense.query.all()
         expenseSchema = ExpenseSchema(many=True)
         results = expenseSchema.dump(expenses)
+        # results = expenses.to_dict()
         if not results:
             return jsonify({'message':'no expenses found'})
         return jsonify({'expense': results})
@@ -111,8 +113,13 @@ def get_expense(id):
         expense = Expense.query.get(id)
         if not expense:
             return jsonify({'Errors': 'Expense not found'})
-        expenseSchema = ExpenseSchema()
-        results = expenseSchema.dump(expense)
+        # expenseSchema = ExpenseSchema()
+        # results = expenseSchema.dumps(expense)
+        # results = expense.to_dict()
+        results = {
+            'id': expense.id,
+            'amount': expense.amount
+        }
         return jsonify({'expense': results})
     if request.method == 'PATCH':
         try:
