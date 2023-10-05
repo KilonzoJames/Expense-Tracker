@@ -1,13 +1,27 @@
-import { useState } from "react";
-const divs = [
-    {name: 'Incomes', amount: 2000, color: 'bg-green-400' },
-    {name: 'Expenses', amount: 1000, color: 'bg-red-600' },
-]
+import { useState, useEffect } from "react";
 
 function ButtonList() {
   const [showExpenses, setShowExpenses] = useState(false);
   const [showIncome, setShowIncome] = useState(false);
+  const [expenses, setExpenses] = useState([]);
 
+  useEffect(() => {
+    fetch(`http://localhost:5555/expenses`)
+      .then((r) => {
+        if (r.ok) {
+          return r.json();
+        } else {
+          throw new Error(`Error fetching expenses: ${r.status}`);
+        }
+      })
+      .then((data) => {
+        console.log(data.expense); 
+        setExpenses(data.expense);
+      })
+      .catch(() => {
+        console.log("rejected");
+      });
+  }, []);   
   const handleShowExpenses = () => {
     setShowExpenses(true);
     setShowIncome(false);
@@ -38,18 +52,8 @@ function ButtonList() {
           Income
         </button>
       </div>
-
-      {showExpenses && (
-        <ul className="flex flex-wrap justify-center gap-4 mx-4 my-4">
-            Expense: {divs[0]['amount']}
-        </ul>
-      )}
-
-      {showIncome && (
-        <ul className="flex flex-wrap justify-center gap-4 mx-4 my-4">
-            Income: {divs[1]['amount']}
-        </ul>
-      )}
+    
+    
     </div>
   );
 }

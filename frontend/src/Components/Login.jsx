@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import {  useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -46,7 +45,7 @@ const toggleVisibility = () => {
         })
     }
   return (
-    <div>
+<div className="centered-login">
       <section>
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-zinc-900 dark:border-zinc-700">
