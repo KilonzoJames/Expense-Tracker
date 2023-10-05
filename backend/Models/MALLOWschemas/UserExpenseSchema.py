@@ -1,6 +1,6 @@
 from app import ma
 from Models.UserExpense import UserExpense
 
-class UserExpenseSchema(ma.ModelSchema):
+class UserSchema(app.ma.SQLAlchemyAutoSchema):
     class Meta:
         model = UserExpense

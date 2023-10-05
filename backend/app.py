@@ -3,10 +3,10 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from marshmallow import fields
-from Models.WTFValidationForms.LoginForm import LoginForm
-from Models.WTFValidationForms.SignUpForm import SignUpForm
-from Models.WTFValidationForms.ExpenseForm import ExpenseForm
-# from Models.MALLOWschemas.ExpenseSchema import ExpenseSchema
+from Models.WTFValidationForms import LoginForm
+from Models.WTFValidationForms import SignUpForm
+from Models.WTFValidationForms import ExpenseForm
+from Models.MALLOWschemas import ExpenseSchema
 from flask_wtf.csrf import generate_csrf
 from werkzeug.security import check_password_hash, generate_password_hash
 from Models.Expense import Expense

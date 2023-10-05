@@ -1,6 +1,7 @@
 from app import ma
+
 from Models.Expense import Expense
 
-class ExpenseSchema(ma.ModelSchema):
+class ExpenseSchema(app.ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Expense
