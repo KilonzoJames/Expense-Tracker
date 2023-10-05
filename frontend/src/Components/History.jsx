@@ -1,14 +1,8 @@
 import Navbar from './Navbar'
-import { FaTrash } from 'react-icons/fa'
+import TableData from './TableData';
 import { useState } from "react";
 import {  useParams } from "react-router-dom";
 import LineChart from './LineChart';
-
-const transactions = [
-    {name: 'Money Transfer', amount: 440, date:'09:30 am'},
-    {name: 'Money Transfer', amount: 440, date:'09:30 am'},
-    {name: 'Money Transfer', amount: 440, date:'09:30 am'}
-]
 
 
 function History() {
@@ -30,24 +24,6 @@ function History() {
             setStatus("rejected");
             });
         }
-        const tableData = transactions.map((tran, index) => {
-            return (
-                <tr key={index} className='p-8 m-24'>
-                    <td className='gap-4 mx-4'>
-                        {tran.name}
-                    </td><td className='gap-4  mx-4'>
-                        {tran.amount}
-                    </td>
-                    <td className='gap-4  mx-4'>
-                        {tran.date}
-                    </td>
-                    <td>
-                        <button onClick={()=>deleteTransaction(tran)} className="bg-blue-400 p-3 rounded-lg custom-pulse animate-pulse"><FaTrash /></button>
-                    </td>
-                </tr>
-            )
-        })
-
   return (
     <>
         <Navbar/>
@@ -69,7 +45,7 @@ function History() {
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>{tableData}</tbody>
+                            <TableData deleteTransaction={deleteTransaction}/>
                         </table>
                     </div>
                 </div>
