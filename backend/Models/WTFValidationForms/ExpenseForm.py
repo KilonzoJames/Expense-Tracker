@@ -5,3 +5,6 @@ from wtforms.validators import DataRequired
 class ExpenseForm(FlaskForm):
     descreption = StringField('Descreption', validators=[DataRequired()])
     amount = FloatField('Amount', validators=[DataRequired()])
+
+    class Meta:
+        csrf = False
