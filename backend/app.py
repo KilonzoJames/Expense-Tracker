@@ -5,7 +5,7 @@ from flask_marshmallow import Marshmallow
 from marshmallow import fields
 from Models.WTFValidationForms.LoginForm import LoginForm
 from Models.WTFValidationForms.SignUpForm import SignUpForm
-from Models.WTFValidationForms import ExpenseForm
+from Models.WTFValidationForms.ExpenseForm import ExpenseForm
 from flask_wtf.csrf import generate_csrf, CSRFProtect
 from werkzeug.security import check_password_hash, generate_password_hash
 from Models.Expense import Expense
@@ -105,10 +105,10 @@ def get_Expenses():
         try:
             form = ExpenseForm()
             if form.validate_on_submit():
-                descreption = form.descreption.data
+                description = form.description.data
                 amount = form.amount.data
 
-                expense = Expense(description=descreption, amount=amount)
+                expense = Expense(description=description, amount=amount)
                 db.session.add(expense)
                 db.session.commit()
 
@@ -120,6 +120,7 @@ def get_Expenses():
                 db.session.commit()
 
                 return jsonify({'message':'Expense added succesfully'}), 201
+            return jsonify({'message':form.description.data}), 400
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
@@ -148,6 +149,7 @@ def get_expense(id):
                 db.session.add(expense)
                 db.session.commit()
                 return jsonify({'message': 'Expense updated successfully'})
+            return jsonify({'message':'Error uploading expense'})
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
