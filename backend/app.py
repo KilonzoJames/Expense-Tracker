@@ -11,6 +11,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from Models.Expense import Expense
 from Models.User import User
 from Models.UserExpense import UserExpense
+from Models.Transaction import Transaction
 
 from Models.Config import db
 
@@ -41,14 +42,19 @@ class ExpenseSchema(ma.SQLAlchemyAutoSchema):
         return UserSchema(many=True).dump(users)
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
+    transactions = fields.Method('get_transactions')
     class Meta:
         model = User
         exclude = ('password', )
 
-@app.route('/get_csrf_token', methods=['GET'])
-def get_csrf_token():
-    csrf_token = generate_csrf()
-    return jsonify({'csrf_token': csrf_token}), 200
+    def get_transactions(self, obj):
+        user_transactions = obj.transactions
+        transactions = [user_transaction.transactions for user_transaction in user_transactions]
+        return UserSchema(many=True).dump(transactions)
+
+class TransactionSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Transaction
 
 def is_authenticated():
     return 'user_id' in session
@@ -165,6 +171,10 @@ def get_expense(id):
             return jsonify({'message': 'Expense deleted successfully'})
         except Exception as e:
             return jsonify({'error': str(e)}), 400
+
+@app.route('/transactions', methods=['GET'])
+def get_transactions():
+    pass
 
 
 db.init_app(app)

@@ -7,6 +7,7 @@ class User(db.Model, SerializerMixin):
     password = db.Column(db.String(80), unique=True)
 
     expenses = db.relationship('UserExpense', backref=db.backref('users', cascade='all, delete'))
+    transactions = db.relationship('UserTransaction', backref=db.backref('user', cascade='all, delete'))
 
     def __init__(self, username, password) -> None:
         self.username = username
