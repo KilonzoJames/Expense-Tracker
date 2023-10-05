@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, session
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
+from marshmallow import fields
 from Models.WTFValidationForms.LoginForm import LoginForm
 from Models.WTFValidationForms.SignUpForm import SignUpForm
 from Models.WTFValidationForms.ExpenseForm import ExpenseForm
@@ -26,9 +27,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 
 class ExpenseSchema(ma.SQLAlchemyAutoSchema):
+    users = fields.Nested('UserSchema', many=True, only=('id', 'username'))
     class Meta:
         model = Expense
         include_fk = True
+
+class UserSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
 
 @app.route('/get_csrf_token', methods=['GET'])
 def get_csrf_token():
@@ -113,13 +119,13 @@ def get_expense(id):
         expense = Expense.query.get(id)
         if not expense:
             return jsonify({'Errors': 'Expense not found'})
-        # expenseSchema = ExpenseSchema()
-        # results = expenseSchema.dumps(expense)
+        expenseSchema = ExpenseSchema()
+        results = expenseSchema.dumps(expense)
         # results = expense.to_dict()
-        results = {
-            'id': expense.id,
-            'amount': expense.amount
-        }
+        # results = {
+        #     'id': expense.id,
+        #     'amount': expense.amount
+        # }
         return jsonify({'expense': results})
     if request.method == 'PATCH':
         try:
