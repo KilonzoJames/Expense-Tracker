@@ -3,11 +3,9 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from marshmallow import fields
-# from Models.WTFValidationForms import LoginForm
 from Models.WTFValidationForms.LoginForm import LoginForm
 from Models.WTFValidationForms.SignUpForm import SignUpForm
 from Models.WTFValidationForms import ExpenseForm
-# from Models.MALLOWschemas import ExpenseSchema
 from flask_wtf.csrf import generate_csrf, CSRFProtect
 from werkzeug.security import check_password_hash, generate_password_hash
 from Models.Expense import Expense
@@ -100,7 +98,6 @@ def get_Expenses():
         expenses = Expense.query.all()
         expenseSchema = ExpenseSchema(many=True)
         results = expenseSchema.dump(expenses)
-        # results = expenses.to_dict()
         if not results:
             return jsonify({'message':'no expenses found'})
         return jsonify({'expense': results})
