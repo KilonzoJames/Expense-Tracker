@@ -1,7 +1,4 @@
-import sys
-sys.path.append(r'/home/user/Moringa/Phase5/Expense-Tracker/backend')
-import app
-
+from app import ma
 from Models.UserExpense import UserExpense
 
 class UserSchema(app.ma.SQLAlchemyAutoSchema):

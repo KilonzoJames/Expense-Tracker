@@ -25,6 +25,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///Tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 
+class ExpenseSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Expense
+        include_fk = True
 
 @app.route('/get_csrf_token', methods=['GET'])
 def get_csrf_token():
@@ -76,7 +80,10 @@ def get_Expenses():
     if request.method == 'GET':
         expenses = Expense.query.all()
         expenseSchema = ExpenseSchema(many=True)
-        results = expenseSchema.dump(expenses).data
+        results = expenseSchema.dump(expenses)
+        # results = expenses.to_dict()
+        if not results:
+            return jsonify({'message':'no expenses found'})
         return jsonify({'expense': results})
     if request.method == 'POST':
         try:
@@ -106,17 +113,22 @@ def get_expense(id):
         expense = Expense.query.get(id)
         if not expense:
             return jsonify({'Errors': 'Expense not found'})
-        expenseSchema = ExpenseSchema()
-        results = expenseSchema.dump(expense).data
+        # expenseSchema = ExpenseSchema()
+        # results = expenseSchema.dumps(expense)
+        # results = expense.to_dict()
+        results = {
+            'id': expense.id,
+            'amount': expense.amount
+        }
         return jsonify({'expense': results})
     if request.method == 'PATCH':
         try:
-            form = form = ExpenseForm()
+            form = ExpenseForm()
             if form.validate_on_submit():
                 descreption = form.descreption.data
                 amount = form.amount.data
 
-                expense = Expense.query.get()
+                expense = Expense.query.get(id)
                 if descreption:
                     expense.descreption = descreption
                 if amount:
@@ -127,18 +139,18 @@ def get_expense(id):
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-        if request.method == 'DELETE':
-            try:
-                expense = Expense.query.get(id)
-                if not expense:
-                    return jsonify({'error': 'Expense not found'}), 404
+    if request.method == 'DELETE':
+        try:
+            expense = Expense.query.get(id)
+            if not expense:
+                return jsonify({'error': 'Expense not found'}), 404
 
-                db.session.delete(expense)
-                db.session.commit()
+            db.session.delete(expense)
+            db.session.commit()
 
-                return jsonify({'message': 'Expense deleted successfully'})
-            except Exception as e:
-                return jsonify({'error': str(e)}), 400
+            return jsonify({'message': 'Expense deleted successfully'})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
 
 
 db.init_app(app)
