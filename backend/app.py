@@ -6,7 +6,7 @@ from marshmallow import fields
 from Models.WTFValidationForms import LoginForm
 from Models.WTFValidationForms import SignUpForm
 from Models.WTFValidationForms import ExpenseForm
-from Models.MALLOWschemas import ExpenseSchema
+# from Models.MALLOWschemas import ExpenseSchema
 from flask_wtf.csrf import generate_csrf
 from werkzeug.security import check_password_hash, generate_password_hash
 from Models.Expense import Expense
