@@ -7,6 +7,7 @@ import Homepage from './Components/Homepage';
 import History from './Components/History';
 
 function App() {
+  const [username, setUsername] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false)
   function handleToggle(){
     setIsDarkMode(prev =>!prev)
@@ -18,11 +19,11 @@ function App() {
   return (
     <BrowserRouter>
         <Routes>
-            <Route exact path="/" element={<Login/>} />
+            <Route exact path="/" element={<Login username={username} setUsername={setUsername}/> } />
             <Route path='/signup' element={<SignUp/>} />
             <Route 
             path='/homepage' 
-            element={<Homepage isDarkMode={isDarkMode} handleToggle={handleToggle}/>} 
+            element={<Homepage username={username} isDarkMode={isDarkMode} handleToggle={handleToggle}/>} 
             />
             <Route path='/history' element={<History isDarkMode={isDarkMode} handleToggle={handleToggle}/>} />
         </Routes>
