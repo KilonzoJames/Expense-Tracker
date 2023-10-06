@@ -10,7 +10,7 @@ const [open, setOpen] = useState(true)
   return (
     <div>
         <div className={`header ${!isDarkMode ? 'light' : 'dark'}`}>
-            <nav className='navbar bg-blue-400 fixed top-0 left-0 w-full h-auto px-12 flex justify-between items-center shadow-md md:shadow-lg lg:shadow-xl'>
+            <nav className='navbar fixed top-0 left-0 w-full h-auto px-12 flex justify-between items-center shadow-md md:shadow-lg lg:shadow-xl'>
                 <a href="/homepage" className='text-4xl font-bold p-4'>Home</a>
                 <ul className="hidden lg:flex items-center text-2xl p-4">
                     <Navlinks/>

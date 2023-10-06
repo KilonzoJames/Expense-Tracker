@@ -2,11 +2,12 @@ import { useState } from 'react';
 import {  useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-
+import '../styles/Login.css'
 
 function Login({username, setUsername}) {
 const [password, setPassword] = useState('');
 const [showPassword, setShowPassword] = useState(false);
+const [error, setError] = useState(null);
 const navigate = useNavigate();
 
 const toggleVisibility = () => {
@@ -14,94 +15,142 @@ const toggleVisibility = () => {
   };
   async function handleSubmit(e) {
     e.preventDefault();
-    // const token = await fetchCSRF()
     const formData = {
         'username': username,
         'password': password,
     };
-
     fetch("http://127.0.0.1:5555/Login", {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-    }).then((r) => {
-        if (r.ok) {
-            navigate("/homepage"); // Redirect to the restaurants list after deletion
-        } else {
-            throw new Error(`Invalid username or password: ${r.status}`);
-        }
-        })
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+  .then((r) => {
+    if (r.ok) {
+      navigate("/history");
+    } else {
+      throw new Error(`Invalid username or password! ${r.status}`);
     }
-  return (
-<div className="centered-login">
-      <section>
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-zinc-900 dark:border-zinc-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Sign in to your account 
-              </h1>
-              <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleSubmit}>
-                <div>
-                  <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="username"
-                    required=""
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-                <div>
-                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Password
-                    </label>
-                    <div className="relative">
-                        <input
-                        autoComplete="off"
-                        type={showPassword ? 'text' : 'password'}
-                        name="password"
-                        id="password"
-                        placeholder="••••••••"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required=""
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <span onClick={toggleVisibility} className="toggle-password absolute text-white text-xl top-2 right-2 cursor-pointer">
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
-                        </span>
-                    </div>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                >
-                  {/* <NavLink to="/homepage">Sign in</NavLink> */}
-                  SignIn
-                </button>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account yet?{' '}
-                  <a href="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                    Sign up
-                  </a>
-                </p>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+  })
+  .catch((error) => {
+    setError(error.message);
+  })
+  .finally(() => {
+    // Clear the username and password fields regardless of success or failure
+    setUsername("");
+    setPassword("");
+  });
 }
+  return (
+    <div className="content">
+      <div className="text">Login</div>
+        <div className="centered-form">
+
+          <form action="#" onSubmit={handleSubmit}>
+            <div className="field">
+              <input 
+              name="username"
+              type="text" 
+              id="username"
+              required
+              className="input" 
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setError(null); // Clear the error message when typing
+              }}              />
+              <span className="span">
+                <svg
+                  className=""
+                  xmlSpace="preserve"
+                  style={{ enableBackground: 'new 0 0 512 512' }}
+                  viewBox="0 0 512 512"
+                  y="0"
+                  x="0"
+                  height="20"
+                  width="50"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g>
+                    <path
+                      className=""
+                      data-original="#000000"
+                      fill="#595959"
+                      d="M256 0c-74.439 0-135 60.561-135 135s60.561 135 135 135 135-60.561 135-135S330.439 0 256 0zM423.966 358.195C387.006 320.667 338.009 300 286 300h-60c-52.008 0-101.006 20.667-137.966 58.195C51.255 395.539 31 444.833 31 497c0 8.284 6.716 15 15 15h420c8.284 0 15-6.716 15-15 0-52.167-20.255-101.461-57.034-138.805z"
+                    ></path>
+                  </g>
+                </svg>
+              </span>
+              <label className="label">Username</label>
+            </div>
+            <div className="field relative">
+              <input 
+              name="password"
+              id="password"
+              placeholder="••••••••"
+              autoComplete="off"
+              type={showPassword ? 'text' : 'password'}
+              required =""
+              className="input" 
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                // setError(null); 
+                // Clear the error message when typing
+              }}              
+              />
+              <span onClick={toggleVisibility} className="span">
+                <svg
+                  className=""
+                  xmlSpace="preserve"
+                  style={{ enableBackground: 'new 0 0 512 512' }}
+                  viewBox="0 0 512 512"
+                  y="0"
+                  x="0"
+                  height="20"
+                  width="50"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g>
+                    <path
+                      className=""
+                      data-original="#000000"
+                      fill="#595959"
+                      d="M336 192h-16v-64C320 57.406 262.594 0 192 0S64 57.406 64 128v64H48c-26.453 0-48 21.523-48 48v224c0 26.477 21.547 48 48 48h288c26.453 0 48-21.523 48-48V240c0-26.477-21.547-48-48-48zm-229.332-64c0-47.063 38.27-85.332 85.332-85.332s85.332 38.27 85.332 85.332v64H106.668zm0 0"></path>
+                  </g>
+                </svg>
+              </span>
+              <span 
+              onClick={toggleVisibility} 
+              className="toggle-password absolute text-zinc-900 text-xl top-4 right-2 cursor-pointer"
+              >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+              <label className="label">Password</label>
+            </div>
+            <div className="forgot-pass">
+              <a href="#">Forgot Password?</a>
+            </div>
+            <button 
+            type="submit"
+            className="button"
+            >
+              Sign in
+            </button>
+            {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
+            <div className="sign-up">
+              Not a member? <a href="/signup">Signup now</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      );
+    }
 Login.propTypes = {
   username: PropTypes.string.isRequired,
   setUsername: PropTypes.func.isRequired,

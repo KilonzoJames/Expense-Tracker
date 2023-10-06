@@ -34,7 +34,7 @@ table{
 .main {
   border-radius: 20%;
 }
-/* Light Mode Styles */
+Light Mode Styles
 body.light {
   background: linear-gradient(to bottom left, #1da1f2, #6253e8);
   color: #000;
@@ -87,9 +87,3 @@ button {
 	width: var(--input-width);
 	border: 1px solid #6253e8;
 }
-/* .centered-login{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; 
-} */

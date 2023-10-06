@@ -8,7 +8,7 @@ import History from './Components/History';
 
 function App() {
   const [username, setUsername] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(true)
   function handleToggle(){
     setIsDarkMode(prev =>!prev)
   }
