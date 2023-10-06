@@ -1,8 +1,9 @@
 import Navbar from './Navbar'
 import TableData from './TableData';
+import Footer from './Footer';
 import { useState } from "react";
 import {  useParams } from "react-router-dom";
-import LineChart from './LineChart';
+// import LineChart from './LineChart';
 
 
 function History() {
@@ -51,7 +52,7 @@ function History() {
                 </div>
             </section>
         </div>
-        <LineChart/>
+        <Footer/>
     </>
   )
 }

@@ -5,10 +5,21 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 function SignUp() {
-const [username, setUsername] = useState("");
-const [password, setPassword] = useState('');
+const [dataObject, setdataObject ]=useState({ 
+    username:"",
+    password:"",
+})
 const [showPassword, setShowPassword] = useState(false);
 const navigate = useNavigate();
+
+function handleChange(event){
+    setdataObject(
+        {
+            ...dataObject,
+            [event.target.name]: event.target.value
+        }
+    )
+}
 
 const toggleVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -16,9 +27,10 @@ const toggleVisibility = () => {
 function handleSubmit(e) {
     e.preventDefault();
     const formData = {
-        username: username,
-        password: password,
-    };
+        username: dataObject.username,
+        password: dataObject.password,
+      };
+
     fetch("http://127.0.0.1:5555/Signup", {
         method: "POST",
         headers: {
@@ -29,7 +41,7 @@ function handleSubmit(e) {
         if (r.ok) {
             navigate("/");
         } else {
-            console.log(FormData);
+            console.log(dataObject);
             throw new Error(`Invalid username or password: ${r.status};`);
         }
         })
@@ -47,9 +59,9 @@ function handleSubmit(e) {
             placeholder=""
             type="text"
             className="input"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+            value={dataObject.username}
+            onChange={handleChange}
+            />
           <span>Username</span>
         </label>
 
@@ -76,14 +88,15 @@ function handleSubmit(e) {
 
       <label>
         <input
-            name="password"
+          name="password"
+          id="password"          
           required
           placeholder=""
           type={showPassword ? 'text' : 'password'}
           className="input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          value={dataObject.password}
+          onChange={handleChange}
+          />
         <span>Password</span>
         <span 
         onClick={toggleVisibility} 
@@ -96,7 +109,9 @@ function handleSubmit(e) {
 
       <label>
         <input
-        //   required
+     //   required
+          name="password"
+          id="password"
           placeholder=""
           type={showPassword ? 'text' : 'password'}
           className="input"
