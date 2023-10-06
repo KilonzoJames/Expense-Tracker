@@ -226,6 +226,10 @@ def get_transaction(id):
             db.session.delete(transaction)
             db.session.commit()
 
+            # userTransaction = UserTransaction.query.filter(UserTransaction.transaction_id == id).first()
+            # db.session.delete(userTransaction)
+            # db.session.commit()
+
             return jsonify({'message': 'transaction deleted successfully'})
         except Exception as e:
             return jsonify({'error': str(e)}), 400
