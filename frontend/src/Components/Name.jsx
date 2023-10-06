@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Name({username}) {
   return (
-    <div className="flex justify-end text-3xl mt-20 gap-5">
+    <div className="flex justify-end text-5xl mt-20 gap-5">
         <FaUser/>
       {username}
     </div>

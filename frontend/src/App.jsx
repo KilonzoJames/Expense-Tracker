@@ -25,7 +25,7 @@ function App() {
             path='/homepage' 
             element={<Homepage username={username} isDarkMode={isDarkMode} handleToggle={handleToggle}/>} 
             />
-            <Route path='/history' element={<History isDarkMode={isDarkMode} handleToggle={handleToggle}/>} />
+            <Route path='/history' element={<History username={username} isDarkMode={isDarkMode} handleToggle={handleToggle}/>} />
         </Routes>
     </BrowserRouter>
   )

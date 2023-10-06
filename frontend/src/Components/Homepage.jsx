@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 function Homepage({username, isDarkMode, handleToggle}) {
   return (
-    <div>
+    <div className='relative'>
         <Navbar isDarkMode={isDarkMode} handleToggle={handleToggle}/>
         <Name username={username} />
         <div className="lg:flex">

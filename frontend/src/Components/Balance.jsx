@@ -1,7 +1,7 @@
 
 function Balance() {
   return (
-        <main className='flex items-center justify-center my-12'>
+        <main className='flex items-center justify-center my-6'>
             <div className='main border-sky-500 cursor-pointer w-96 h-80 shadow-2xl p-6  mx-auto my-12'>
                 <div className='relative left-0 w-full h-1/2 '>
                     <span className='absolute left-0 top-5 text-2xl'>Total Balance</span> 

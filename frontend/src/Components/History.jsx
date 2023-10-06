@@ -1,18 +1,20 @@
 import Navbar from './Navbar'
+import Name from './Name';
 import TableData from './TableData';
 import Footer from './Footer';
 import { useState } from "react";
 import {  useParams } from "react-router-dom";
+import PropTypes from 'prop-types';
 // import LineChart from './LineChart';
 
 
-function History() {
+function History({username, isDarkMode, handleToggle}) {
     const [error, setError] = useState(null);
     const [status, setStatus] = useState("pending");
     const { id } = useParams();
 
     function deleteTransaction(){
-        fetch(`/history/${id}`, {method: "DELETE"})
+        fetch(`/transaction/${id}`, {method: "DELETE"})
             .then((r) => {
             if (r.ok) {
                 return(r.status); 
@@ -27,7 +29,8 @@ function History() {
         }
   return (
     <>
-        <Navbar/>
+        <Navbar isDarkMode={isDarkMode} handleToggle={handleToggle}/>
+        <Name username={username} />
         <div className='m-20' >
             <h2 className='text-4xl'>Transaction History</h2>
             <section className='h-screen text-xl lg:text-3xl'>
@@ -53,5 +56,9 @@ function History() {
     </>
   )
 }
-
+History.propTypes = {
+    isDarkMode: PropTypes.bool, 
+    handleToggle: PropTypes.func, 
+    username: PropTypes.string,
+  };
 export default History
