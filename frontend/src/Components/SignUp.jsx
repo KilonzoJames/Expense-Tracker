@@ -8,9 +8,12 @@ function SignUp() {
 const [dataObject, setdataObject ]=useState({ 
     username:"",
     password:"",
+    confirmPassword:"",
 })
 const [showPassword, setShowPassword] = useState(false);
+const [showConfPassword, setShowConPassword] = useState(false);
 const navigate = useNavigate();
+const [passwordsMatch, setPasswordsMatch] = useState(true);
 
 function handleChange(event){
     setdataObject(
@@ -24,8 +27,16 @@ function handleChange(event){
 const toggleVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
+const toggleConfirmVisibility = () => {
+  setShowConPassword((prevState) => !prevState);
+};
 function handleSubmit(e) {
     e.preventDefault();
+     // Check if passwords match
+     if (dataObject.password !== dataObject.confirmPassword) {
+      setPasswordsMatch(false);
+      return; // Exit the function if passwords don't match
+    }
     const formData = {
         username: dataObject.username,
         password: dataObject.password,
@@ -120,22 +131,28 @@ function handleSubmit(e) {
 
       <label>
         <input
-       required
-          name="password"
+          required
+          name="confirmPassword"
           minLength={8}       
           placeholder=""
-          type={showPassword ? 'text' : 'password'}
+          type={showConfPassword ? 'text' : 'password'}
           className="input"
+          value={dataObject.confirmPassword}
+          onChange={handleChange}
         />
         <span>Confirm password</span>
         <span 
-        onClick={toggleVisibility} 
+        onClick={toggleConfirmVisibility} 
         className={`absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-xl ${
-            showPassword ? "" : "text-gray-400"
+          showConfPassword ? "" : "text-gray-400"
           }`}        >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
+            {showConfPassword ? <FaEyeSlash /> : <FaEye />}
         </span>
       </label>
+
+      {!passwordsMatch && (
+          <p className="text-red-500">Passwords do not match. Please try again.</p>
+        )}
 
       <button className="submit">Submit</button>
 
