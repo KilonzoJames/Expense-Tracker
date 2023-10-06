@@ -87,18 +87,21 @@ def signIn():
 @app.route('/Signup', methods=['POST'])
 def signUp():
     form = SignUpForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
+    try:
+        if form.validate_on_submit():
+            username = form.username.data
+            password = form.password.data
 
-        hashed_password = generate_password_hash(password)
-        newUser = User(username=username, password=hashed_password)
+            hashed_password = generate_password_hash(password)
+            newUser = User(username=username, password=hashed_password)
 
-        db.session.add(newUser)
-        db.session.commit()
+            db.session.add(newUser)
+            db.session.commit()
 
-        return jsonify({'status': 'Registration successful'})
-    return jsonify({'error': form.errors}), 400
+            return jsonify({'status': 'Registration successful'})
+        return jsonify({'error': form.errors}), 400
+    except Exception as e:
+            return jsonify({'error': str(e)}), 400
 
 @app.route('/expenses', methods=['GET', 'POST'])
 def get_Expenses():
