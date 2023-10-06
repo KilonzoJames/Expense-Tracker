@@ -86,9 +86,9 @@ button {
 	width: var(--input-width);
 	border: 1px solid #6253e8;
 }
-.centered-login{
+/* .centered-login{
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh; 
-}
+} */
