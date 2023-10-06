@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import {  useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
-function Login() {
+
+function Login({username, setUsername}) {
 const [password, setPassword] = useState('');
-const [username, setUsername] = useState("");
 const [showPassword, setShowPassword] = useState(false);
 const navigate = useNavigate();
 
@@ -112,5 +113,9 @@ const toggleVisibility = () => {
     </div>
   );
 }
+Login.propTypes = {
+  username: PropTypes.string.isRequired,
+  setUsername: PropTypes.string.isRequired,
 
+};
 export default Login;
