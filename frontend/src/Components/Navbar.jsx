@@ -23,7 +23,7 @@ const [open, setOpen] = useState(true)
                     )}
                 </div>
                 <div className='text-4xl' onClick={handleToggle}>
-                        {isDarkMode ? <FaSun /> : <FaMoon />}
+                        {isDarkMode ? <FaMoon/> : <FaSun />}
                 </div>
             </nav>
         </div>

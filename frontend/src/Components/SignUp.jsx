@@ -66,7 +66,7 @@ function handleSubmit(e) {
     
     }
   return (
-<div className="centered-form">
+<div className="centered-form text-zinc-950">
     <form className="form" action="#" onSubmit={handleSubmit}>
       <p className="title">Register</p>
       <p className="message">Signup now and get full access to our app.</p>
