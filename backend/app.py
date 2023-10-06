@@ -30,9 +30,6 @@ CORS(app, origins=["http://localhost:5173"], methods=["GET", "POST"], supports_c
 ma = Marshmallow(app)
 
 migrate = Migrate(app, db)
-
-
-
 CSRFProtect(app)
 
 class ExpenseSchema(ma.SQLAlchemyAutoSchema):
@@ -42,20 +39,15 @@ class ExpenseSchema(ma.SQLAlchemyAutoSchema):
         include_fk = True
 
     def get_users(self, obj):
-        user_expenses = obj.user
+        user_expenses = obj.users
         users = [user_expense.users for user_expense in user_expenses]
         return UserSchema(many=True).dump(users)
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
-    transactions = fields.Method('get_transactions')
     class Meta:
         model = User
         exclude = ('password', )
 
-    def get_transactions(self, obj):
-        user_transactions = obj.transactions
-        transactions = [user_transaction.transactions for user_transaction in user_transactions]
-        return UserSchema(many=True).dump(transactions)
 
 class TransactionSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -182,7 +174,7 @@ def get_expense(id):
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-@app.route('/transactions', methods=['GET', 'POST', 'DELETE'])
+@app.route('/transactions', methods=['GET', 'POST'])
 def get_transactions():
     if request.method == 'GET':
         transactions = Transaction.query.all()
@@ -215,14 +207,14 @@ def get_transactions():
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-@app.route('/transaction/<int:id>', methods=['GET','POST'])
+@app.route('/transaction/<int:id>', methods=['GET','DELETE'])
 def get_transaction(id):
     if request.method == 'GET':
         transaction = Transaction.query.get(id)
         if not transaction:
             return jsonify({'Error': 'transaction not found'})
-        expenseSchema = ExpenseSchema()
-        results = expenseSchema.dumps(transaction)
+        transactionSchema = TransactionSchema()
+        results = transactionSchema.dumps(transaction)
 
         return jsonify({'transaction': results})
     if request.method == 'DELETE':
