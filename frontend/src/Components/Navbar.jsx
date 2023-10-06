@@ -22,7 +22,7 @@ const [open, setOpen] = useState(true)
                     <FaTimes onClick={() => setOpen(!open)} />
                     )}
                 </div>
-                <div className='text-4xl' onClick={handleToggle}>
+                <div className='text-4xl hover:scale-150 transition-all duration-500' onClick={handleToggle}>
                         {isDarkMode ? <FaMoon/> : <FaSun />}
                 </div>
             </nav>

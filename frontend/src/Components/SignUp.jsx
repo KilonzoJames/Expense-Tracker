@@ -8,12 +8,14 @@ function SignUp() {
 const [dataObject, setdataObject ]=useState({ 
     username:"",
     password:"",
+    email:"",
     confirmPassword:"",
 })
 const [showPassword, setShowPassword] = useState(false);
 const [showConfPassword, setShowConPassword] = useState(false);
-const navigate = useNavigate();
 const [passwordsMatch, setPasswordsMatch] = useState(true);
+const [error, setError] = useState(null);
+const navigate = useNavigate();
 
 function handleChange(event){
     setdataObject(
@@ -40,6 +42,7 @@ function handleSubmit(e) {
     const formData = {
         username: dataObject.username,
         password: dataObject.password,
+        email: dataObject.email
       };
 
       fetch("http://127.0.0.1:5555/Signup", {
@@ -56,13 +59,13 @@ function handleSubmit(e) {
                 if (r.ok) {
                     navigate("/");
                 } else {
-                    throw new Error(`Invalid username or password: ${r.status};`);
+                    throw new Error(`Username or password already registered: ${r.status};`);
                 }
             });
         })
         .catch((error) => {
-            console.error(error);
-        });
+          setError(error.message);
+        })
     
     }
   return (
@@ -99,10 +102,13 @@ function handleSubmit(e) {
 
       <label>
         <input
+          name="email"
+          type="text"
           required
           placeholder=""
-          type="email"
           className="input"
+          value={dataObject.email} // Capture email value
+          onChange={handleChange} // H
         />
         <span>Email</span>
       </label>
@@ -153,6 +159,7 @@ function handleSubmit(e) {
       {!passwordsMatch && (
           <p className="text-red-500">Passwords do not match. Please try again.</p>
         )}
+      {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
 
       <button className="submit">Submit</button>
 

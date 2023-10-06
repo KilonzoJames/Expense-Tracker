@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 
 function TransactionForm({ onSubmit }) {
   const [amount, setAmount] = useState('');
-  const [note, setNote] = useState('');
+  const [description, setDescription] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const timestamp = new Date().toISOString(); // Get the current timestamp
-    const transactionData = { amount, note, timestamp };
-    
+    const parsedAmount = parseInt(amount, 10); // Parse amount as an integer
+    const transactionData = { amount: parsedAmount, description, timestamp };
+      
     try {
       const response = await fetch("http://127.0.0.1:5555/transactions", {
         method: "POST",
@@ -22,14 +23,14 @@ function TransactionForm({ onSubmit }) {
 
       if (response.ok) {
         console.log("Transaction submitted successfully");
-      } else {
+      } else {console.log(transactionData)
         throw new Error(` ${response.status}`);
       }
     } catch (error) {
       console.error("An error occurred:", error);
     }
     setAmount('');
-    setNote('');
+    setDescription('');
   };
 
   return (
@@ -51,8 +52,8 @@ function TransactionForm({ onSubmit }) {
         type="text"
         id="description"
         placeholder="Description"
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
         className="max-width-black" 
       />
       <button className="login-button" type="submit" id="login-button">

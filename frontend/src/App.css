@@ -87,3 +87,20 @@ button {
 	width: var(--input-width);
 	border: 1px solid #6253e8;
 }
+/* Define custom keyframes for a slower bounce animation */
+@keyframes custom-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Apply the custom bounce animation and set the duration */
+.animate-custom-bounce {
+  animation: custom-bounce 6.5s ease-in-out infinite;
+}

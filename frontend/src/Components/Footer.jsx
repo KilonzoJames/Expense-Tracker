@@ -49,7 +49,7 @@ const handleSubmit = (transactionData) => {
             </ul>
         </div>
         <div 
-        className='arrow text-white text-5xl absolute right-0 top-0' 
+        className='arrow text-white text-5xl absolute right-0 top-0 cursor-pointer animate-custom-bounce' 
         onClick={() => animateScroll.scrollToTop()
         }>
             <FaArrowUp />

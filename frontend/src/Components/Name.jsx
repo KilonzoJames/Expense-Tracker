@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function Name({username}) {
   return (
     <div className="flex justify-end text-5xl mt-20 gap-5">
-        <FaUser/>
+        <FaUser className="hover:scale-150 transition-all duration-500"/>
       {username}
     </div>
   )

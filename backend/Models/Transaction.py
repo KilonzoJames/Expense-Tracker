@@ -7,7 +7,7 @@ class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(200))
     amount  = db.Column(db.Float)
-    action = db.Column(db.String)
+    timestamp = db.Column(db.String)
     created_at = db.Column(DateTime, default=datetime.utcnow)
     updated_at = db.Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

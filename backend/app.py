@@ -91,9 +91,10 @@ def signUp():
         if form.validate_on_submit():
             username = form.username.data
             password = form.password.data
+            email = form.email.data
 
             hashed_password = generate_password_hash(password)
-            newUser = User(username=username, password=hashed_password)
+            newUser = User(username=username, password=hashed_password, email=email)
 
             db.session.add(newUser)
             db.session.commit()
@@ -192,9 +193,9 @@ def get_transactions():
             if form.validate_on_submit():
                 description = form.description.data
                 amount = form.amount.data
-                action = form.action.data
+                timestamp = form.timestamp.data
 
-                transaction = Transaction(description=description, amount=amount, action=action)
+                transaction = Transaction(description=description, amount=amount, timestamp=timestamp)
                 db.session.add(transaction)
                 db.session.commit()
 
@@ -206,7 +207,7 @@ def get_transactions():
                 db.session.commit()
 
                 return jsonify({'message':'Transaction added succesfully'}), 201
-            return jsonify({'message':form.description.data}), 400
+            return jsonify({'error': form.errors}), 400
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
