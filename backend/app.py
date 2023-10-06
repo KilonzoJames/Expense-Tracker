@@ -6,11 +6,17 @@ from marshmallow import fields
 from Models.WTFValidationForms.LoginForm import LoginForm
 from Models.WTFValidationForms.SignUpForm import SignUpForm
 from Models.WTFValidationForms.ExpenseForm import ExpenseForm
-from flask_wtf.csrf import generate_csrf, CSRFProtect
+from Models.WTFValidationForms.TransactionForm import TransactionForm
+from Models.WTFValidationForms.IncomeForm import IncomeForm
+from flask_wtf.csrf import CSRFProtect
 from werkzeug.security import check_password_hash, generate_password_hash
 from Models.Expense import Expense
 from Models.User import User
 from Models.UserExpense import UserExpense
+from Models.Transaction import Transaction
+from Models.Income import Income
+from Models.UserTransaction import UserTransaction
+from Models.UserIncome import UserIncome
 
 from Models.Config import db
 
@@ -24,9 +30,6 @@ CORS(app, origins=["http://localhost:5173"], methods=["GET", "POST"], supports_c
 ma = Marshmallow(app)
 
 migrate = Migrate(app, db)
-
-
-
 CSRFProtect(app)
 
 class ExpenseSchema(ma.SQLAlchemyAutoSchema):
@@ -45,10 +48,15 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         model = User
         exclude = ('password', )
 
-@app.route('/get_csrf_token', methods=['GET'])
-def get_csrf_token():
-    csrf_token = generate_csrf()
-    return jsonify({'csrf_token': csrf_token}), 200
+
+class TransactionSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Transaction
+
+
+class IncomeSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Income
 
 def is_authenticated():
     return 'user_id' in session
@@ -163,6 +171,99 @@ def get_expense(id):
             db.session.commit()
 
             return jsonify({'message': 'Expense deleted successfully'})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
+
+@app.route('/transactions', methods=['GET', 'POST'])
+def get_transactions():
+    if request.method == 'GET':
+        transactions = Transaction.query.all()
+        expenseSchema = TransactionSchema(many=True)
+        results = expenseSchema.dump(transactions)
+        if not results:
+            return jsonify({'message':'no expenses found'})
+        return jsonify({'expense': results})
+    if request.method == 'POST':
+        try:
+            form = TransactionForm()
+            if form.validate_on_submit():
+                description = form.description.data
+                amount = form.amount.data
+                action = form.action.data
+
+                transaction = Transaction(description=description, amount=amount, action=action)
+                db.session.add(transaction)
+                db.session.commit()
+
+                user_id = session['user_id']
+                user = User.query.get(user_id)
+
+                userTransaction = UserTransaction(user=user, transaction=transaction)
+                db.session.add(userTransaction)
+                db.session.commit()
+
+                return jsonify({'message':'Transaction added succesfully'}), 201
+            return jsonify({'message':form.description.data}), 400
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
+
+@app.route('/transaction/<int:id>', methods=['GET','DELETE'])
+def get_transaction(id):
+    if request.method == 'GET':
+        transaction = Transaction.query.get(id)
+        if not transaction:
+            return jsonify({'Error': 'transaction not found'})
+        transactionSchema = TransactionSchema()
+        results = transactionSchema.dumps(transaction)
+
+        return jsonify({'transaction': results})
+    if request.method == 'DELETE':
+        try:
+            transaction = Transaction.query.get(id)
+            if not transaction:
+                return jsonify({'error': 'Transaction not found'}), 404
+
+            db.session.delete(transaction)
+            db.session.commit()
+
+            # userTransaction = UserTransaction.query.filter(UserTransaction.transaction_id == id).first()
+            # db.session.delete(userTransaction)
+            # db.session.commit()
+
+            return jsonify({'message': 'transaction deleted successfully'})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
+
+@app.route('/incomes', methods=['GET', 'POST'])
+def get_incomes():
+    if request.method == 'GET':
+        incomes = Income.query.all()
+        incomSchema = IncomeSchema(many=True)
+        results = incomSchema.dump(incomes)
+        if not results:
+            return jsonify({'message':'no income streams found'})
+        return jsonify({'incomes': results})
+
+    if request.method == 'POST':
+        try:
+            form = IncomeForm()
+            if form.validate_on_submit():
+                description = form.description.data
+                amount = form.amount.data
+
+                income = Income(description=description, amount=amount)
+                db.session.add(income)
+                db.session.commit()
+
+                user_id = session['user_id']
+                user = User.query.get(user_id)
+
+                userIncome = UserIncome(user=user, income=income)
+                db.session.add(userIncome)
+                db.session.commit()
+
+                return jsonify({'message':'Income added succesfully'}), 201
+            return jsonify({'message': 'validations error'}), 400
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 

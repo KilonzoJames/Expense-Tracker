@@ -1,5 +1,4 @@
 from .Config import db
-from sqlalchemy_serializer import SerializerMixin
 
 class UserExpense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
