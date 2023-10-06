@@ -1,5 +1,5 @@
 import './App.css'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
@@ -8,13 +8,6 @@ import History from './Components/History';
 
 function App() {
   const [username, setUsername] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(true)
-  function handleToggle(){
-    setIsDarkMode(prev =>!prev)
-  }
-  useEffect(() => {
-    document.body.className = isDarkMode ? 'dark' : 'light';
-  }, [isDarkMode]);
 
   return (
     <BrowserRouter>
@@ -23,9 +16,9 @@ function App() {
             <Route path='/signup' element={<SignUp/>} />
             <Route 
             path='/homepage' 
-            element={<Homepage username={username} isDarkMode={isDarkMode} handleToggle={handleToggle}/>} 
+            element={<Homepage username={username} />} 
             />
-            <Route path='/history' element={<History username={username} isDarkMode={isDarkMode} handleToggle={handleToggle}/>} />
+            <Route path='/history' element={<History username={username}/>} />
         </Routes>
     </BrowserRouter>
   )

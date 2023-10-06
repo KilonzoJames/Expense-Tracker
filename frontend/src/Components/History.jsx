@@ -5,10 +5,12 @@ import Footer from './Footer';
 import { useState } from "react";
 import {  useParams } from "react-router-dom";
 import PropTypes from 'prop-types';
+import { ThemeProvider } from './ThemeContext';
+
 // import LineChart from './LineChart';
 
 
-function History({username, isDarkMode, handleToggle}) {
+function History({username }) {
     const [error, setError] = useState(null);
     const [status, setStatus] = useState("pending");
     const { id } = useParams();
@@ -28,8 +30,8 @@ function History({username, isDarkMode, handleToggle}) {
             });
         }
   return (
-    <>
-        <Navbar isDarkMode={isDarkMode} handleToggle={handleToggle}/>
+    <ThemeProvider>
+        <Navbar/>
         <Name username={username} />
         <div className='m-20' >
             <h2 className='text-4xl'>Transaction History</h2>
@@ -53,12 +55,10 @@ function History({username, isDarkMode, handleToggle}) {
             </section>
         </div>
         <Footer/>
-    </>
+    </ThemeProvider>
   )
 }
 History.propTypes = {
-    isDarkMode: PropTypes.bool, 
-    handleToggle: PropTypes.func, 
     username: PropTypes.string,
   };
 export default History

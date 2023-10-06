@@ -48,7 +48,7 @@ body.light .light {
   transition: all 1s;
 }
 
-/* Dark Mode Styles */
+Dark Mode Styles */
 body.dark {
   background: #1d4ed8;
   color: #fff;
@@ -59,7 +59,7 @@ body.dark {
 
 .broken-hr {
   border: none;
-  height: 2px; /* Adjust the height as needed */
+  height: 2px; /* Adjust the height as needed
   background-image: linear-gradient(90deg, transparent 40%, #000 40%, #000 60%, transparent 60%);
   background-size: 6px 2px; /* Adjust the size of the dashes */
 }
