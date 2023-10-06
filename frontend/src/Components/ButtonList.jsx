@@ -52,8 +52,32 @@ function ButtonList() {
           Income
         </button>
       </div>
-    
-    
+      {showExpenses && Array.isArray(expenses) ? (
+        <ul className="flex flex-wrap justify-center gap-4 mx-4 my-4">
+          {expenses.map((expense, index) => (
+            <li key={index} className="text-zinc-900 font-bold">
+               Amount: {expense.amount}
+               <br/>
+               Description: {expense.descreption}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>{null}</p>
+      )}
+      {showIncome && Array.isArray(expenses) ? (
+              <ul className="flex flex-wrap justify-center gap-4 mx-4 my-4">
+                {expenses.map((expense, index) => (
+                  <li key={index} className="text-white font-medium">
+                     Income Amount: {expense.amount}
+                     <br/>
+                     Description: {expense.descreption}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>{null}</p>
+            )}
     </div>
   );
 }
