@@ -18,6 +18,7 @@ DIV[data-lastpass-icon-root] {
 .signup-page-body {
   padding: 12rem !important;
 }
+
 ul {
   z-index: 9999;
 }
@@ -28,7 +29,7 @@ nav{
 	/* z-index: 101; */
 }
 table{
-  font-family: monospace;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .main {
   border-radius: 20%;

@@ -9,17 +9,6 @@ const [password, setPassword] = useState('');
 const [showPassword, setShowPassword] = useState(false);
 const navigate = useNavigate();
 
-const fetchCSRF = async()=>{
-  try{
-    const res = await fetch('http://127.0.0.1:5555/get_csrf_token');
-    const data = await res.json();
-    const csrfToken = data.csrf_token
-    return csrfToken
-  }catch(error){
-    console.log('err occured')
-  }
-}
-
 const toggleVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -115,7 +104,7 @@ const toggleVisibility = () => {
 }
 Login.propTypes = {
   username: PropTypes.string.isRequired,
-  setUsername: PropTypes.string.isRequired,
+  setUsername: PropTypes.func.isRequired,
 
 };
 export default Login;

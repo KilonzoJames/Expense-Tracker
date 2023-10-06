@@ -36,14 +36,11 @@ function History() {
                         <table className="border-0 border-collapse w-full">
                             <thead className='lg:p-4 lg:m-12'>
                                 <tr>
-                                    <th className='underline'>Transactions</th>
-                                    <th className='underline'>See All</th>
-                                    </tr>
-                                    <tr>
                                     <th scope="col">Transaction</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Timestamp</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Update</th>
+                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <TableData deleteTransaction={deleteTransaction}/>

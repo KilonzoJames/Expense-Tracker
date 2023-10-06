@@ -1,4 +1,4 @@
-import { FaTrash } from 'react-icons/fa'
+import { FaTrash, FaEdit } from 'react-icons/fa'
 
 const transactions = [
     {name: 'Money Transfer', amount: 440, date:'09:30 am'},
@@ -13,6 +13,13 @@ function TableData({deleteTransaction}) {
                         <td className='gap-4 mx-4'> {tran.name} </td>
                         <td className='gap-4 mx-4'> {tran.amount} </td>
                         <td className='gap-4 mx-4'> {tran.date} </td>           
+                        <td>
+                            <button
+                                // onClick={UpdateTran}
+                                className='border animate-bounce border-green-950 rounded-md cursor-pointer hover:text-white p3-4 mx-2 '
+                                > <FaEdit/>
+                            </button>
+                        </td>
                         <td>
                             <button 
                             onClick={()=>deleteTransaction(tran)} 

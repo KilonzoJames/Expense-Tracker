@@ -31,20 +31,28 @@ function handleSubmit(e) {
         password: dataObject.password,
       };
 
-    fetch("http://127.0.0.1:5555/Signup", {
+      fetch("http://127.0.0.1:5555/Signup", {
         method: "POST",
         headers: {
-        "Content-Type": "application/json",
+            "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-    }).then((r) => {
-        if (r.ok) {
-            navigate("/");
-        } else {
-            console.log(dataObject);
-            throw new Error(`Invalid username or password: ${r.status};`);
-        }
+    })
+        .then((r) => {
+            // Log the response body content
+            return r.json().then(responseData => {
+                console.log(responseData);
+                if (r.ok) {
+                    navigate("/");
+                } else {
+                    throw new Error(`Invalid username or password: ${r.status};`);
+                }
+            });
         })
+        .catch((error) => {
+            console.error(error);
+        });
+    
     }
   return (
 <div className="centered-form">
@@ -55,6 +63,8 @@ function handleSubmit(e) {
         <label>
           <input
             name="username"
+            minLength={4}
+            maxLength={80}
             required
             placeholder=""
             type="text"
@@ -89,7 +99,8 @@ function handleSubmit(e) {
       <label>
         <input
           name="password"
-          id="password"          
+          id="password"   
+          minLength={8}       
           required
           placeholder=""
           type={showPassword ? 'text' : 'password'}
@@ -111,7 +122,7 @@ function handleSubmit(e) {
         <input
        required
           name="password"
-          id="password"
+          minLength={8}       
           placeholder=""
           type={showPassword ? 'text' : 'password'}
           className="input"

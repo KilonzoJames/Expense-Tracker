@@ -58,7 +58,7 @@ function ButtonList() {
             <li key={index} className="text-zinc-900 font-bold">
                Amount: {expense.amount}
                <br/>
-               Description: {expense.descreption}
+               Description: {expense.description}
             </li>
           ))}
         </ul>
@@ -69,7 +69,7 @@ function ButtonList() {
               <ul className="flex flex-wrap justify-center gap-4 mx-4 my-4">
                 {expenses.map((expense, index) => (
                   <li key={index} className="text-white font-medium">
-                     Income Amount: {expense.amount}
+                     Income: {expense.amount}
                      <br/>
                      Description: {expense.descreption}
                   </li>

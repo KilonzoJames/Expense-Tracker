@@ -26,6 +26,6 @@ function Homepage({username, isDarkMode, handleToggle}) {
 Homepage.propTypes = {
     isDarkMode: PropTypes.bool.isRequired, 
     handleToggle: PropTypes.func.isRequired, 
-    username: PropTypes.func.isRequired,
+    username: PropTypes.string.isRequired,
   };
 export default Homepage
