@@ -78,7 +78,7 @@ function handleSubmit(e) {
 
       <label>
         <input
-        //   required
+          required
           placeholder=""
           type="email"
           className="input"
@@ -109,7 +109,7 @@ function handleSubmit(e) {
 
       <label>
         <input
-     //   required
+       required
           name="password"
           id="password"
           placeholder=""
