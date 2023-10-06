@@ -223,12 +223,12 @@ def get_transaction(id):
             if not transaction:
                 return jsonify({'error': 'Transaction not found'}), 404
 
-            db.session.delete(transaction)
-            db.session.commit()
-
             # userTransaction = UserTransaction.query.filter(UserTransaction.transaction_id == id).first()
             # db.session.delete(userTransaction)
             # db.session.commit()
+
+            db.session.delete(transaction)
+            db.session.commit()
 
             return jsonify({'message': 'transaction deleted successfully'})
         except Exception as e:
