@@ -10,10 +10,10 @@ function Navlinks() {
   return (
         links.map((link, index) => {
             return(
-                <li key={index} className='mx-4 py-4 hover:scale-75 transition-all duration-500'>
+                <li key={index} className='text-2xl mx-4 py-4 hover:scale-75 transition-all duration-500'>
                     <NavLink 
                     to={link.to} 
-                    className='hover:bg-blue-900 hover:shadow-md'                     >
+                    className='hover:shadow-sm'                     >
                         {link.name}
                     </NavLink>
                 </li>

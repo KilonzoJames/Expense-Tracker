@@ -2,33 +2,12 @@ import Navbar from './Navbar'
 import Name from './Name';
 import TableData from './TableData';
 import Footer from './Footer';
-import { useState } from "react";
-import {  useParams } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { ThemeProvider } from './ThemeContext';
 
-// import LineChart from './LineChart';
 
-
-function History({username }) {
-    const [error, setError] = useState(null);
-    const [status, setStatus] = useState("pending");
-    const { id } = useParams();
-
-    function deleteTransaction(){
-        fetch(`/transaction/${id}`, {method: "DELETE"})
-            .then((r) => {
-            if (r.ok) {
-                return(r.status); 
-            } else {
-                throw new Error(`Error deleting restaurant: ${r.status}`);
-            }
-            })
-            .catch((err) => {
-            setError(err.message);
-            setStatus("rejected");
-            });
-        }
+function History({ username }) {
+   
   return (
     <ThemeProvider>
         <Navbar/>
@@ -48,7 +27,8 @@ function History({username }) {
                                     <th scope="col">Delete</th>
                                 </tr>
                             </thead>
-                            <TableData deleteTransaction={deleteTransaction}/>
+                            <TableData
+                            />
                         </table>
                     </div>
                 </div>

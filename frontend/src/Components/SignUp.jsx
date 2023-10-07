@@ -59,7 +59,12 @@ function handleSubmit(e) {
                 if (r.ok) {
                     navigate("/");
                 } else {
-                    throw new Error(`Username or password already registered: ${r.status};`);
+                    throw new Error(`Oops! The email provided is already registered!"
+
+
+
+
+                    : ${r.status};`);
                 }
             });
         })

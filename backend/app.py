@@ -186,7 +186,7 @@ def get_transactions():
         results = expenseSchema.dump(transactions)
         if not results:
             return jsonify({'message':'no expenses found'})
-        return jsonify({'expense': results})
+        return jsonify(results)
     if request.method == 'POST':
         try:
             form = TransactionForm()
@@ -202,9 +202,9 @@ def get_transactions():
                 user_id = session['user_id']
                 user = User.query.get(user_id)
 
-                userTransaction = UserTransaction(user=user, transaction=transaction)
-                db.session.add(userTransaction)
-                db.session.commit()
+                # userTransaction = UserTransaction(user=user, transaction=transaction)
+                # db.session.add(userTransaction)
+                # db.session.commit()
 
                 return jsonify({'message':'Transaction added succesfully'}), 201
             return jsonify({'error': form.errors}), 400

@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired
 class TransactionForm(FlaskForm):
     description = StringField('description', validators=[DataRequired()])
     amount = FloatField('amount', validators=[DataRequired()])
-    action = StringField('action', validators=[DataRequired()])
+    timestamp = StringField('timestamp', validators=[DataRequired()])
 
     class Meta:
         csrf = False

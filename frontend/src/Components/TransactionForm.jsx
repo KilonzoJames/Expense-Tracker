@@ -20,12 +20,14 @@ function TransactionForm({ onSubmit }) {
         },
         body: JSON.stringify(transactionData),
       });
-
-      if (response.ok) {
-        console.log("Transaction submitted successfully");
-      } else {console.log(transactionData)
-        throw new Error(` ${response.status}`);
-      }
+      return response.json().then(responseData => {
+        console.log(responseData);
+        if (response.ok) {
+          console.log("Transaction submitted successfully");
+        } else {
+            throw new Error(`Username or password already registered: ${response.status};`);
+        }
+    });
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -42,7 +44,7 @@ function TransactionForm({ onSubmit }) {
       <input
         type="text"
         id="amount"
-        placeholder='$999.99'
+        placeholder='Enter Amount $'
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         className="max-width-black" 
