@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 
@@ -22,6 +22,17 @@ export function ThemeProvider({ children }) {
 export function useTheme() {
   return useContext(ThemeContext);
 }
+
 ThemeProvider.propTypes = {
     children: PropTypes.node,
   };
+
+  
+// import { createContext, useState } from 'react';
+// export const ThemeContext = createContext(null)
+
+// export function ThemeProvider({ children }) {
+// const [theme, setTheme] = useState('dark');
+// const toggleTheme = () => {
+//   setTheme((curr) => (curr === "light" ? "dark" : "light"));
+// };

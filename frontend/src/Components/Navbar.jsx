@@ -1,15 +1,20 @@
-import  { useState, useContext } from 'react';
+import  { useState, useEffect } from 'react';
 import SideNavbar from './SideNavbar'
 import Navlinks from './Navlinks'
 import { FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
-import { ThemeContext } from './ThemeContext';
+import { useTheme } from './ThemeContext';
 
 function Navbar() {
-const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+const { isDarkMode, toggleTheme } = useTheme();
 const [open, setOpen] = useState(true) 
-const modeClass = isDarkMode ? 'light' : 'dark';
+const modeClass = isDarkMode ? 'dark' : 'light';
+console.log(isDarkMode, modeClass)
 
-  return (
+useEffect(() => {
+    document.body.className = modeClass; // Apply the modeClass to the body element
+  }, [modeClass]);
+  
+  return (    
     <div>
         <div className={modeClass}>
             <nav className='navbar fixed top-0 left-0 w-full h-auto px-12 flex justify-between items-center shadow-md md:shadow-lg lg:shadow-xl'>

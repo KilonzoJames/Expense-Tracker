@@ -135,3 +135,6 @@
     left: 5px; /* Adjust the value as needed */
     transform: translateY(-50%);
   }
+  input, textarea {
+    caret-color: rgb(22, 9, 142); 
+  }
