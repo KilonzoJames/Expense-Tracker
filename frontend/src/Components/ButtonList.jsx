@@ -1,9 +1,17 @@
 import { useState, useEffect } from "react";
+import Balance from './Balance';
 
 function ButtonList() {
   const [showExpenses, setShowExpenses] = useState(false);
   const [showIncome, setShowIncome] = useState(false);
   const [expenses, setExpenses] = useState([]);
+  const [incomes, setIncomes] = useState([])
+
+
+  const totalIncome = incomes.reduce((accumulator, currentIncome) => accumulator + currentIncome.amount, 0);
+  const totalExpenses = expenses.reduce((accumulator, currentExpense) => accumulator + currentExpense.amount, 0);
+  const accumulation = totalIncome - totalExpenses;
+  console.log(accumulation)
 
   useEffect(() => {
     fetch(`http://localhost:5555/expenses`)
@@ -22,6 +30,24 @@ function ButtonList() {
         console.log("rejected");
       });
   }, []);   
+  useEffect(() => {
+    fetch(`http://localhost:5555/incomes`)
+      .then((r) => {
+        if (r.ok) {
+          return r.json();
+        } else {
+          throw new Error(`Error fetching incomes: ${r.status}`);
+        }
+      })
+      .then((incomes) => {
+        console.log(incomes); // Assuming the response contains an "income" property
+        setIncomes(incomes);
+      })
+      .catch(() => {
+        console.log("rejected");
+      });
+  }, []);
+  
   const handleShowExpenses = () => {
     setShowExpenses(true);
     setShowIncome(false);
@@ -34,6 +60,10 @@ function ButtonList() {
 
   return (
     <div>
+       <div className="lg:w-1/2">
+          <Balance accumulation={accumulation}/>
+      </div>
+      <div className="lg:w-1/2 h-screen">
       <div className="flex justify-center mt-24 my-12">
         <button
           onClick={handleShowExpenses}
@@ -53,31 +83,33 @@ function ButtonList() {
         </button>
       </div>
       {showExpenses && Array.isArray(expenses) ? (
-        <ul className="flex flex-wrap justify-center gap-4 mx-4 my-4">
-          {expenses.map((expense, index) => (
-            <li key={index} className="text-zinc-900 font-bold">
-               Amount: {expense.amount}
-               <br/>
-               Description: {expense.description}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>{null}</p>
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 text-center text-zinc-900 font-bold gap-4 mx-4 my-4">
+            {expenses.map((expense, index) => (
+              <li key={index} className="">
+                Amount: {expense.amount}
+                <br />
+                Description: {expense.description}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>{null}</p>
       )}
-      {showIncome && Array.isArray(expenses) ? (
-              <ul className="flex flex-wrap justify-center gap-4 mx-4 my-4">
-                {expenses.map((expense, index) => (
-                  <li key={index} className="text-white font-medium">
-                     Income: {expense.amount}
-                     <br/>
-                     Description: {expense.descreption}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>{null}</p>
-            )}
+
+     {showIncome && Array.isArray(incomes) ? (
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 text-center text-gray-400 text-md gap-4 mx-4 my-4">
+            {incomes.map((income, index) => (
+              <li key={index} className="text-white font-medium">
+                Income: {income.amount}
+                <br />
+                Description: {income.description}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>{null}</p>
+    )}
+    </div>
     </div>
   );
 }

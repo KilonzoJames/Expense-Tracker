@@ -270,7 +270,7 @@ def get_incomes():
         results = incomSchema.dump(incomes)
         if not results:
             return jsonify({'message':'no income streams found'})
-        return jsonify({'incomes': results})
+        return jsonify(results)
 
     if request.method == 'POST':
         try:
