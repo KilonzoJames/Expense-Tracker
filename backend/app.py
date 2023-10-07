@@ -63,7 +63,7 @@ def is_authenticated():
 
 @app.before_request
 def check_authentication():
-    exempt_routes = ['signIn', 'signUp']  # Add any other exempted routes here
+    exempt_routes = ['signIn', 'signUp', 'homepage', 'history', 'login']  # Add any other exempted routes here
     if request.endpoint and request.endpoint.lower() in exempt_routes:
         if not is_authenticated():
             return jsonify({'error': 'Authentication required'}), 401
@@ -83,6 +83,12 @@ def signIn():
         else:
             return jsonify({'error': 'Invalid username or password'}), 401
     return jsonify({'error':'invalid data'}), 400
+
+@app.route('/logout')
+def logout():
+    # Remove the 'user_id' key from the session to log the user out
+    session.pop('user_id', None)
+    return 'Logged out'
 
 @app.route('/Signup', methods=['POST'])
 def signUp():
@@ -199,12 +205,13 @@ def get_transactions():
                 db.session.add(transaction)
                 db.session.commit()
 
-                user_id = session['user_id']
+                # user_id = session['user_id']
+                user_id = 2
                 user = User.query.get(user_id)
 
-                # userTransaction = UserTransaction(user=user, transaction=transaction)
-                # db.session.add(userTransaction)
-                # db.session.commit()
+                userTransaction = UserTransaction(user=user, transaction=transaction)
+                db.session.add(userTransaction)
+                db.session.commit()
 
                 return jsonify({'message':'Transaction added succesfully'}), 201
             return jsonify({'error': form.errors}), 400

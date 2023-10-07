@@ -8,7 +8,6 @@ function Navbar() {
 const { isDarkMode, toggleTheme } = useTheme();
 const [open, setOpen] = useState(true) 
 const modeClass = isDarkMode ? 'dark' : 'light';
-console.log(isDarkMode, modeClass)
 
 useEffect(() => {
     document.body.className = modeClass; // Apply the modeClass to the body element
@@ -18,10 +17,8 @@ useEffect(() => {
     <div>
         <div className={modeClass}>
             <nav className='navbar fixed top-0 left-0 w-full h-auto px-12 flex justify-between items-center shadow-md md:shadow-lg lg:shadow-xl'>
-                <a href="/homepage" className='text-4xl font-bold p-4'>Home</a>
-                <ul className="hidden lg:flex items-center text-2xl p-4">
-                    <Navlinks/>
-                </ul>
+                <a href="/history" className='text-4xl font-bold p-4'>Home</a>
+                <Navlinks/>
                 <div className='icons lg:hidden flex items-center gap-10 text-4xl p-4'>
                     {open ? (
                     <FaBars onClick={() => setOpen(!open)} />
