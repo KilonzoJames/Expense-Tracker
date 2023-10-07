@@ -35,7 +35,7 @@ table{
 
 /* Dark Mode Styles */
 .dark {
-  background: #1d4ed8;
+  background: linear-gradient(to bottom left, #1d4ed8, #1f2937);
   color: #fff;
   transition: all 1s;
 }
@@ -69,31 +69,40 @@ button {
 	border: 1px solid #6253e8;
 }
 
-/* Define custom keyframes for a slower bounce animation */
+/* Define a slower and smoother bounce animation */
 @keyframes custom-bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%, 100% {
     transform: translateY(0);
   }
-  40% {
-    transform: translateY(-30px);
+  25% {
+    transform: translateY(-10px);
   }
-  60% {
-    transform: translateY(-15px);
+  50% {
+    transform: translateY(-20px);
+  }
+  75% {
+    transform: translateY(-10px);
   }
 }
 
-/* Apply the custom bounce animation and set the duration */
+/* Apply the slower and smoother bounce animation */
 .animate-custom-bounce {
-  animation: custom-bounce 6.5s ease-in-out infinite;
-}
-.switch {
-  display: flex;
-  width: 100vw;
-  height: 100px;
-  justify-content: center;
-  align-items: center;
+  animation: custom-bounce 1s ease-in-out infinite; /* Adjust the duration as needed */
 }
 
-.switch label {
-  margin: 10px;
+
+
+/* Define a CSS animation called 'spin-once' */
+@keyframes spin-once {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply the animation to an element on hover */
+.element-to-spin-on-hover:hover {
+  animation: spin-once 1s ease-in-out; /* You can adjust the duration and easing as needed */
 }

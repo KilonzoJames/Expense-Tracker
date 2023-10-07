@@ -60,7 +60,7 @@ function TableData() {
                         <td>
                             <button
                                 onClick={() => toggleFormVisibility(tran.id)}
-                                className='border animate-bounce border-green-950 rounded-md cursor-pointer hover:text-white p3-4 mx-2 '
+                                className='element-to-spin-on-hover rounded-md cursor-pointer hover:text-white p3-4 mx-2 '
                                 >  {' '}
                                 <FaEdit/>
                             </button >
