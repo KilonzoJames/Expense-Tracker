@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {  useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import '../styles/Login.css'
+import ReactSwitch from 'react-switch';
+import { useTheme } from './ThemeContext';
 
 function Login({username, updateUsername}) {
 const [newUsername, setNewUsername] = useState("");
@@ -46,8 +48,14 @@ const toggleVisibility = () => {
     setPassword("");
   });
 }
+const { isDarkMode, toggleTheme } = useTheme();
+const modeClass = isDarkMode ? 'dark' : 'light';
+useEffect(() => {
+    document.body.className = modeClass; // Apply the modeClass to the body element
+  }, [modeClass]);
   return (
-  <div className="content">
+<>
+  <div className="modeClass content">
     <p className="text-xl font-light italic">Track your expenditures using the 
     <div className='text-blue-500 not-italic font-semibold hover:scale-75 cursor-pointer transition-all duration-500'
     > Expense_Tracker App</div></p>
@@ -156,6 +164,10 @@ const toggleVisibility = () => {
           </form>
         </div>
       </div>
+      <div className='switch'>  
+         <ReactSwitch onChange={toggleTheme} checked={isDarkMode==='dark'}/>
+      </div>
+  </>
       );
     }
 Login.propTypes = {
