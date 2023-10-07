@@ -1,6 +1,6 @@
 import  { useState } from 'react';
 
-function Update({ transactionId }) {
+function Update({ tran }) {
     const [formData, setFormData] = useState({
         amount: '',
         description: '',
@@ -26,7 +26,7 @@ function Update({ transactionId }) {
     };
   
     try {
-        const response = await fetch(`/transaction/${transactionId}`, {
+        const response = await fetch(`http://127.0.0.1:5555/transaction/${tran.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -58,10 +58,10 @@ function Update({ transactionId }) {
         <input
           className="w-full p-2 mt-1 outline-none ring-none focus:ring-2 focus:ring-sky-500"
           type="text"
-          name="transaction"
+          name="description"
           value={formData.transaction}
           onChange={handleInputChange}
-          required
+          required=''
         />
         <label className="text-xs font-bold after:content-['*']" htmlFor="amount">
           Amount
@@ -72,7 +72,7 @@ function Update({ transactionId }) {
           name="amount"
           value={formData.amount}
           onChange={handleInputChange}
-          required
+          required=''
         />
         <button className="w-full mt-8 rounded text-white p-2 text-center font-bold hover:bg-sky-400" type="submit">
           Submit

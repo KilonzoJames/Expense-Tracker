@@ -26,7 +26,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///Tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 app.config['WTF_CSRF_CHECK_DEFAULT']=False
-CORS(app, origins=["http://localhost:5173"], methods=["GET", "POST", "DELETE"], supports_credentials=True)
+CORS(app, origins=["http://localhost:5173"], methods=["GET", "POST", "DELETE", "PATCH",], supports_credentials=True)
 ma = Marshmallow(app)
 
 migrate = Migrate(app, db)
@@ -218,7 +218,7 @@ def get_transactions():
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-@app.route('/transaction/<int:id>', methods=['GET','DELETE'])
+@app.route('/transaction/<int:id>', methods=['GET','DELETE', 'PATCH'])
 def get_transaction(id):
     print(f"Received request for transaction with id: {id}")
 
@@ -244,6 +244,21 @@ def get_transaction(id):
             db.session.commit()
 
             return jsonify({'message': 'transaction deleted successfully'})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
+    if request.method == 'PATCH':
+        try:
+            transaction = Transaction.query.get(id)
+            if not transaction:
+                return jsonify({'error': 'Transaction not found'}), 404
+            
+            data = request.get_json()
+            if 'amount' in data:
+                transaction.amount = data['amount']
+            if 'description' in data:
+                transaction.description = data['description']
+            db.session.commit()
+            return jsonify({'message': 'transaction updated successfully'})
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
