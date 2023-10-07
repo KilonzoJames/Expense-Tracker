@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function Balance({accumulation}) {
+function Balance({totalExpenses, totalIncome,accumulation}) {
   return (
         <main className='flex items-center justify-center my-6'>
             <div className='main border-sky-500 cursor-pointer w-96 h-80 shadow-2xl p-6  mx-auto my-12'>
@@ -11,8 +11,8 @@ function Balance({accumulation}) {
                     <span className='text-4xl absolute left-8 bottom-4'>${accumulation}</span>
                 </div>
                 <div className='flex justify-center h-1/2 text-2xl'>
-                    <div className='flex items-center w-1/2'>&#128737; Income</div>
-                    <div className='flex items-center w-1/2'>&#9889;Expenses</div>
+                    <div className='flex items-center w-1/2'>&#128737; Income<br/>{totalIncome}</div>
+                    <div className='flex items-center w-1/2'>&#9889;Expenses<br/>{totalExpenses}</div>
                 </div>
             </div>
         </main>

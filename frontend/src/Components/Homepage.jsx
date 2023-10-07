@@ -12,9 +12,7 @@ function Homepage({username}) {
       <div className='relative'>
           <Navbar/>
           <Name username={username} />
-          <div className="lg:flex">
-              <ButtonList/>
-          </div>
+          <ButtonList/>
           <Footer/>
       </div>
     </ThemeProvider>

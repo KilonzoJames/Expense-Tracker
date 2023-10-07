@@ -59,9 +59,9 @@ function ButtonList() {
   };
 
   return (
-    <div>
+    <div className="flex flex-wrap">
        <div className="lg:w-1/2">
-          <Balance accumulation={accumulation}/>
+          <Balance accumulation={accumulation} totalIncome={totalIncome} totalExpenses={totalExpenses}/>
       </div>
       <div className="lg:w-1/2 h-screen">
       <div className="flex justify-center mt-24 my-12">
