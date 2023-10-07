@@ -1,56 +1,66 @@
 import { useState, useEffect } from 'react';
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import '../styles/Login.css'
 import ReactSwitch from 'react-switch';
 import { useTheme } from './ThemeContext';
 
-function Login({username, updateUsername}) {
-const [newUsername, setNewUsername] = useState("");
-const [password, setPassword] = useState('');
-const [showPassword, setShowPassword] = useState(false);
-const [error, setError] = useState(null);
-const navigate = useNavigate();
+function Login({ updateUsername }) {
+  const [newUsername, setNewUsername] = useState("");
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-const handleLogin = () => {
-  updateUsername(newUsername);
-};
-const toggleVisibility = () => {
+  useEffect(() => {
+    // Perform any actions that should occur when newUsername changes here
+    console.log(`newUsername has changed to: ${newUsername}`);
+  }, [newUsername]);
+
+  const handleLogin = () => {
+    updateUsername(newUsername);
+  };
+
+  const toggleVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
-  async function handleSubmit(e) {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
-        'username': username,
-        'password': password,
+      'username': newUsername,
+      'password': password,
     };
-    fetch("http://127.0.0.1:5555/Login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  })
-  .then((r) => {
-    if (r.ok) {console.log(formData)
-      navigate("/history");
-    } else {console.log(formData)
-      throw new Error(`Invalid username or password! ${r.status}`);
+    try {
+      const response = await fetch("http://127.0.0.1:5555/Login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log(formData);
+        navigate("/history");
+      } else {
+        console.log(formData);
+        throw new Error(`Invalid username or password! ${response.status}`);
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      // Clear the username and password fields regardless of success or failure
+      handleLogin("");
+      setPassword("");
     }
-  })
-  .catch((error) => {
-    setError(error.message);
-  })
-  .finally(() => {
-    // Clear the username and password fields regardless of success or failure
-    handleLogin("");
-    setPassword("");
-  });
-}
-const { isDarkMode, toggleTheme } = useTheme();
-const modeClass = isDarkMode ? 'dark' : 'light';
-useEffect(() => {
+  };
+
+  const { isDarkMode, toggleTheme } = useTheme();
+  const modeClass = isDarkMode ? 'dark' : 'light';
+
+  useEffect(() => {
     document.body.className = modeClass; // Apply the modeClass to the body element
   }, [modeClass]);
   return (

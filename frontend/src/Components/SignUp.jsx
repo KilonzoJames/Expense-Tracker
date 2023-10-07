@@ -77,6 +77,9 @@ useEffect(() => {
   }, [modeClass]);
   return (
 <>
+  <div className='switch'>  
+    <ReactSwitch onChange={toggleTheme} checked={isDarkMode==='dark'}/>
+  </div>
     <div className="modeClass centered-form text-zinc-950">
         <form className="form" action="#" onSubmit={handleSubmit}>
           <p className="title hover:scale-110 transition-all duration-500">Register</p>
@@ -176,9 +179,6 @@ useEffect(() => {
           </p>
         </form>
     </div>
-    <div className='switch'>  
-    <ReactSwitch onChange={toggleTheme} checked={isDarkMode==='dark'}/>
-  </div>
 </>
   );
 }
