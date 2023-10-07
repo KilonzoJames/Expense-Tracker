@@ -4,12 +4,16 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import '../styles/Login.css'
 
-function Login({username, setUsername}) {
+function Login({username, updateUsername}) {
+const [newUsername, setNewUsername] = useState("");
 const [password, setPassword] = useState('');
 const [showPassword, setShowPassword] = useState(false);
 const [error, setError] = useState(null);
 const navigate = useNavigate();
 
+const handleLogin = () => {
+  updateUsername(newUsername);
+};
 const toggleVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -27,9 +31,9 @@ const toggleVisibility = () => {
     body: JSON.stringify(formData),
   })
   .then((r) => {
-    if (r.ok) {
+    if (r.ok) {console.log(formData)
       navigate("/history");
-    } else {
+    } else {console.log(formData)
       throw new Error(`Invalid username or password! ${r.status}`);
     }
   })
@@ -38,13 +42,16 @@ const toggleVisibility = () => {
   })
   .finally(() => {
     // Clear the username and password fields regardless of success or failure
-    setUsername("");
+    handleLogin("");
     setPassword("");
   });
 }
   return (
-    <div className="content">
-      <div className="text">Login</div>
+  <div className="content">
+    <p className="text-xl font-light italic">Track your expenditures using the 
+    <div className='text-blue-500 not-italic font-semibold hover:scale-75 cursor-pointer transition-all duration-500'
+    > Expense_Tracker App</div></p>
+      <div className="text text-blue-500">Login</div>
         <div className="centered-form">
 
           <form action="#" onSubmit={handleSubmit}>
@@ -55,9 +62,9 @@ const toggleVisibility = () => {
               id="username"
               required
               className="input" 
-              value={username}
+              value={newUsername}
               onChange={(e) => {
-                setUsername(e.target.value);
+                setNewUsername(e.target.value);
                 setError(null); // Clear the error message when typing
               }}              />
               <span className="span">
@@ -153,7 +160,7 @@ const toggleVisibility = () => {
     }
 Login.propTypes = {
   username: PropTypes.string.isRequired,
-  setUsername: PropTypes.func.isRequired,
+  updateUsername: PropTypes.func.isRequired,
 
 };
 export default Login;

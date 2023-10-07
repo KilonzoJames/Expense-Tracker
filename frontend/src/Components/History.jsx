@@ -10,11 +10,12 @@ function History({ username }) {
    
   return (
     <ThemeProvider>
-        <Navbar/>
-        <Name username={username} />
-        <div className='m-20' >
+        <div>
+        <div><Navbar/></div>
+        <div><Name username={username}/></div>
+        <div className='mx-auto px-44 lg:p-0'>
             <h2 className='text-4xl'>Transaction History</h2>
-            <section className='h-screen text-xl lg:text-3xl'>
+            <section className='text-xl lg:text-3xl'>
                 <div className="flex justify-center p-2">
                     <div className="table-container lg:w-full">
                         <table className="border-0 border-collapse w-full">
@@ -34,7 +35,9 @@ function History({ username }) {
                 </div>
             </section>
         </div>
-        <Footer/>
+        <div> <Footer/></div>
+       
+        </div>
     </ThemeProvider>
   )
 }
