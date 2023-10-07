@@ -24,16 +24,24 @@ const handleSubmit = (transactionData) => {
 };
 
   return (
-    <footer className='fixed bottom-0 left-0 w-full text-2xl h-auto text-fuchsia-50 shadow-md md:shadow-lg lg:shadow-xl'>
+    <footer className='bg-zinc-900 text-white lg:w-full h-auto p-4 shadow-lg md:shadow-lg lg:shadow-xl'>
          <div 
          onClick={handleArrowClick}
-         className="bg-purple-500 text-white rounded-full mx-auto p-3 w-16 h-16 text-4xl cursor-pointer absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2
-         ">
+         className="bg-purple-500 text-white rounded-full mx-auto p-3 w-16 h-16 text-4xl cursor-pointer absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+         style={{ position: 'fixed', left: '50%', bottom: '20px' }}
+         >
             <FaPlus />
         </div>
-        {showForm && <TransactionForm onSubmit={handleSubmit} />}
-        <div>
-            <ul className='flex justify-center my-2 p-2'>
+        {showForm && 
+        <div style={{ position: 'fixed', left: '0', bottom: '20px' }}
+            > <TransactionForm onSubmit={handleSubmit} />
+        </div>
+        }
+        <div className="flex justify-center items-center">
+            <ul 
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2
+                text-center pt-2 text-gray-400 text-md "           
+                 >
                 {
                     links.map((link, index) => {
                         return(
@@ -49,14 +57,19 @@ const handleSubmit = (transactionData) => {
             </ul>
         </div>
         <div 
-        className='arrow text-white text-5xl absolute right-0 top-0 cursor-pointer animate-custom-bounce' 
-        onClick={() => animateScroll.scrollToTop()
+            className='text-teal-400 text-5xl cursor-pointer animate-custom-bounce' 
+            style={{ position: 'fixed', right: '0', bottom: '20px' }}
+            onClick={() => animateScroll.scrollToTop()
         }>
             <FaArrowUp />
         </div>
         <hr className='broken-hr'/>
-        <div className="my-2 p-2 relative text-center">
-            <p>&copy; {new Date().getFullYear()} All rights reserved</p>
+        <div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 
+            text-center text-gray-400 text-md"
+         >
+            <span className="self-center">&copy; {new Date().getFullYear()} </span>
+            <span className="self-center">All rights reserved</span>
         </div>
     </footer>
   )

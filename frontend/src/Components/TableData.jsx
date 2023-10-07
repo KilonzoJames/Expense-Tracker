@@ -65,7 +65,7 @@ function TableData() {
                             </button >
                             {visibleFormId === tran.id && (
                                 <div 
-                                className="hover:text-red-500 rounded-full mx-auto p-3 w-16 h-16 text-4xl cursor-pointer absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                className="hover:text-red-500 rounded-full mx-auto p-3 w-16 h-16 text-4xl cursor-pointer fixed left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                                 >
                                     <Update/>
                                 </div>
