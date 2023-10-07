@@ -19,12 +19,10 @@ function Navlinks() {
               Stats
             </NavLink>
         </li>
-        <li className='text-2xl mx-4 py-4 hover:scale-75 transition-all duration-500'>
-        <li onClick={logoutUser} className=''>
+        <li onClick={logoutUser} className='text-2xl mx-4 py-4 hover:scale-75 transition-all duration-500'>
             <NavLink to='/' className='hover:shadow-sm'>
              Log-out
             </NavLink>
-        </li>
         </li>
     </ul>
       );

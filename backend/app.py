@@ -26,7 +26,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///Tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 app.config['WTF_CSRF_CHECK_DEFAULT']=False
-CORS(app, origins=["http://localhost:5173"], methods=["GET", "POST"], supports_credentials=True)
+CORS(app, origins=["http://localhost:5173"], methods=["GET", "POST", "DELETE"], supports_credentials=True)
 ma = Marshmallow(app)
 
 migrate = Migrate(app, db)
@@ -220,6 +220,8 @@ def get_transactions():
 
 @app.route('/transaction/<int:id>', methods=['GET','DELETE'])
 def get_transaction(id):
+    print(f"Received request for transaction with id: {id}")
+
     if request.method == 'GET':
         transaction = Transaction.query.get(id)
         if not transaction:

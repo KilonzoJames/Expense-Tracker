@@ -35,17 +35,18 @@ function TableData() {
       }, []);
     
       function deleteTransaction(tran) {
-        fetch(`/transaction/${tran.id}`, { method: "DELETE" })
-        .then((r) => {
-            if (r.ok) {
+        return fetch(`http://127.0.0.1:5555/transaction/${tran.id}`, { method: "DELETE" })
+         .then(r => {
+          console.log(r);           
+           if (r.ok) {
                 // Request was successful
                 return r.json({message: 'fulfilled'});
             } else {
                 // Request returned an error status (e.g., 404 or 500)
                 throw new Error(`Error deleting transaction: ${r.status}`);
             }
-        })
-          .catch(() => {console.log("rejected");
+        }).then(r=>console.log(r))
+          .catch(() => {console.error("rejected"); 
           });
       }
     return (
