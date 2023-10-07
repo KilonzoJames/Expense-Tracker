@@ -1,9 +1,22 @@
 import { FaTrash, FaEdit } from 'react-icons/fa'
 import { useState, useEffect } from 'react';
-import { json } from 'react-router-dom';
+import Update from './Update';
 
 function TableData() {
     const [transactions, setTransactions] = useState([]);
+    // const [isFormVisible, setFormVisible] = useState(false);
+    // const toggleFormVisibility = () => {
+    //   setFormVisible(!isFormVisible);
+    // };
+    const [visibleFormId, setVisibleFormId] = useState(null);
+
+    const toggleFormVisibility = (id) => {
+      if (visibleFormId === id) {
+        setVisibleFormId(null);
+      } else {
+        setVisibleFormId(id);
+      }
+    };
 
     useEffect(() => {
         fetch('http://127.0.0.1:5555/transactions')
@@ -36,7 +49,7 @@ function TableData() {
           });
       }
     return (
-        <tbody>
+        <tbody className='tbody'>
             {Array.isArray(transactions) && transactions.length > 0 ? (
                 transactions.map((tran, index) => (
                     <tr key={index} className='p-8 m-24'>
@@ -45,11 +58,18 @@ function TableData() {
                         <td className='gap-4 mx-4'> {tran.timestamp} </td>           
                         <td>
                             <button
-                                // onClick={UpdateTran}
+                                onClick={() => toggleFormVisibility(tran.id)}
                                 className='border animate-bounce border-green-950 rounded-md cursor-pointer hover:text-white p3-4 mx-2 '
                                 >  {' '}
                                 <FaEdit/>
-                            </button>
+                            </button >
+                            {visibleFormId === tran.id && (
+                                <div 
+                                className="hover:text-red-500 rounded-full mx-auto p-3 w-16 h-16 text-4xl cursor-pointer absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                >
+                                    <Update/>
+                                </div>
+                            )}
                         </td>
                         <td>
                             <button 

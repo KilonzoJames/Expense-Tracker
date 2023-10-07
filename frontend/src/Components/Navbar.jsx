@@ -1,4 +1,4 @@
-import  { useState, useEffect, useContext } from 'react';
+import  { useState, useContext } from 'react';
 import SideNavbar from './SideNavbar'
 import Navlinks from './Navlinks'
 import { FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
