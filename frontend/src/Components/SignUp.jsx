@@ -59,11 +59,7 @@ function handleSubmit(e) {
                 if (r.ok) {
                     navigate("/");
                 } else {
-                    throw new Error(`Oops! The email provided is already registered!"
-
-
-
-
+                    throw new Error(`Oops! Invalid details or try again later!"
                     : ${r.status};`);
                 }
             });
