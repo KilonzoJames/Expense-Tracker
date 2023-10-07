@@ -57,8 +57,8 @@ useEffect(() => {
 <>
   <div className="modeClass content">
     <p className="text-xl font-light italic">Track your expenditures using the 
-    <div className='text-blue-500 not-italic font-semibold hover:scale-75 cursor-pointer transition-all duration-500'
-    > Expense_Tracker App</div></p>
+    <span className='text-blue-500 not-italic font-semibold hover:scale-75 cursor-pointer transition-all duration-500'
+    > Expense_Tracker App</span></p>
       <div className="text text-blue-500">Login</div>
         <div className="centered-form">
 
