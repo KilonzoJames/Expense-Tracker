@@ -1,6 +1,6 @@
 import './App.css'
 import {useState} from 'react'
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import Homepage from './Components/Homepage';
@@ -13,7 +13,6 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
         <Routes>
             <Route 
             exact path="/" 
@@ -28,7 +27,6 @@ function App() {
             path='/history' 
             element={<History username={username}/>} />
         </Routes>
-    </BrowserRouter>
   )
 }
 
