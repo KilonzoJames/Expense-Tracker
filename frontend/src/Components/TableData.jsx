@@ -103,7 +103,7 @@ function TableData() {
                       className="text-red-600 hover:text-red-500"
                       style={{ position: 'fixed', left: '0', bottom: '20px' }}
                     >
-                      <Update tran={tran} />
+                      <Update tran={tran} toggleFormVisibility={toggleFormVisibility}/>
                     </div>
                   )}
                 </div>

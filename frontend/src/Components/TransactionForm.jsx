@@ -68,7 +68,7 @@ function TransactionForm({handleArrowClick}) {
   )
 }
 TransactionForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  handleArrowClick: PropTypes.func.isRequired,
 
 };
 export default TransactionForm;
