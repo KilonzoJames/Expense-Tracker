@@ -17,13 +17,14 @@ from Models.Transaction import Transaction
 from Models.Income import Income
 from Models.UserTransaction import UserTransaction
 from Models.UserIncome import UserIncome
-
+# from flask_restful import Api, Resource
 from Models.Config import db
 
 
 app=Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///Tracker.db'
+app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql://kilonzo:lQ1pDUVlYqjTnG2s1pUHAir9W6NryLp9@dpg-ckbcgj6smu8c7398dbhg-a.frankfurt-postgres.render.com/expense_tracker_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+app.json.compact = False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 app.config['WTF_CSRF_CHECK_DEFAULT']=False
 CORS(app, origins=["https://an-expense-tracker.onrender.com"], methods=["GET", "POST", "DELETE", "PATCH",], supports_credentials=True)
@@ -297,5 +298,11 @@ def get_incomes():
 
 
 db.init_app(app)
+# api = Api(app)
+# api.add_resource(Expense, '/expenses')
+# api.add_resource(Income, '/incomes')
+# api.add_resource(Transaction, '/transactions', '/transaction/<int:id>')
+# api.add_resource(User, '/Signup')
+
 if __name__=='__main__':
     app.run(port=5555)
