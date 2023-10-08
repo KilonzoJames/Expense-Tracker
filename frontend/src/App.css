@@ -106,3 +106,25 @@ button {
 .element-to-spin-on-hover:hover {
   animation: spin-once 1s ease-in-out; /* You can adjust the duration and easing as needed */
 }
+.arrow {
+	background-color: #e6e4f6;
+	height: 60px;
+	width: 60px;
+	border-radius: 10px;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+
+.arrow svg {
+	color: #1d4ed8;
+}
+
+.light .arrow{
+	background-color: #f5f5f5;
+	transition: all 0.5s;
+}
+.arrow:hover{
+  background-color: #1da1f2;
+}

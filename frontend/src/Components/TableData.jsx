@@ -50,44 +50,67 @@ function TableData() {
           });
       }
     return (
-        <tbody className='tbody'>
-            {Array.isArray(transactions) && transactions.length > 0 ? (
-                transactions.map((tran, index) => (
-                    <tr key={index} className='p-8 m-24'>
-                        <td className='gap-4 mx-4'> {tran.description} </td>
-                        <td className='gap-4 mx-4'> {tran.amount} </td>
-                        <td className='gap-4 mx-4'> {tran.timestamp} </td>           
-                        <td>
-                            <button
-                                onClick={() => toggleFormVisibility(tran.id)}
-                                className='element-to-spin-on-hover rounded-md cursor-pointer hover:text-white p3-4 mx-2 '
-                                >  {' '}
-                                <FaEdit/>
-                            </button >
-                            {visibleFormId === tran.id && (
-                                <div 
-                                className="text-red-600 hover:text-red-500 " style={{ position: 'fixed', left: '0', bottom: '20px' }}
-                                  > <Update tran={tran}/>
-                                </div>
-                            )}
-                        </td>
-                        <td>
-                            <button 
-                            onClick={()=>{deleteTransaction(tran);console.log(tran.id)}} 
-                            className="bg-blue-400 p-3 rounded-lg custom-pulse animate-pulse"
-                            >
-                                <FaTrash />
-                            </button>
-                        </td>
-                    </tr>
-                ))
-            ) : (
-                <tr>
-                <td colSpan="5">No transactions available.</td>
-                </tr>
-            )}
-            </tbody>
-        );
-        }
+    <div className="transaction-list flex flex-wrap text-grey-200">
+      {Array.isArray(transactions) && transactions.length > 0 ? (
+        transactions.map((tran, index) => (
+          <div key={index} className="specific border-2 border-cyan-400 rounded-lg m-auto lg:p-4 " style={{ width: '200px', height: '200px' }}>
+             <div className="grid grid-cols-2 gap-4">
+                {/* First Row */}
+                <div className="transaction-item">
+                  <div className="transaction-label">Description:</div>
+                  <div className="transaction-value">{tran.description}</div>
+                </div>
+                <div className="transaction-item">
+                  <div className="transaction-label">Amount:</div>
+                  <div className="transaction-value">{tran.amount}</div>
+                </div>
+                {/* Second Row */}
+              <div className="grid grid-cols-1">
+                <div className="transaction-item">
+                  <div className="transaction-label">Timestamp:</div>
+                  <div className="transaction-value">{tran.timestamp}</div>
+                </div>
+                </div> 
+              </div> 
+
+                   {/* Third Row */}
+              <div className="grid grid-cols-2">
+                <div className="transaction-item">
+                  <button
+                    onClick={() => toggleFormVisibility(tran.id)}
+                    className="element-to-spin-on-hover rounded-md cursor-pointer hover:text-white p-4 mx-2"
+                  >
+                    {' '}
+                    <FaEdit />
+                  </button>
+                  {visibleFormId === tran.id && (
+                    <div
+                      className="text-red-600 hover:text-red-500"
+                      style={{ position: 'fixed', left: '0', bottom: '20px' }}
+                    >
+                      <Update tran={tran} />
+                    </div>
+                  )}
+                </div>
+                <div className="transaction-item">
+                  <button
+                    onClick={() => {
+                      deleteTransaction(tran);
+                      console.log(tran.id);
+                    }}
+                    className="bg-blue-400 p-3 rounded-lg custom-pulse animate-pulse"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </div>
+          </div>
+        ))
+      ) : (
+        <div className="no-transactions">No transactions available.</div>
+      )}
+    </div>
+  );
+  }
 
 export default TableData

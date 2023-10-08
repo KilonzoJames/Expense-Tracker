@@ -13,27 +13,31 @@ function History({ username }) {
         <div>
         <div><Navbar/></div>
         <div><Name username={username}/></div>
-        <div className='mx-auto px-44 lg:p-0'>
+        <div className='mx-auto lg:p-0'>
             <h2 className='text-4xl'>Transaction History</h2>
-            <section className='text-xl lg:text-3xl'>
-                <div className="flex justify-center p-2">
-                    <div className="table-container lg:w-full">
-                        <table className="border-0 border-collapse w-full">
-                            <thead className='lg:p-4 lg:m-12'>
-                                <tr>
-                                    <th scope="col">Transaction</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Timestamp</th>
-                                    <th scope="col">Update</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            <TableData
-                            />
-                        </table>
+            <div className="border-0 border-collapse w-full">
+                <div className='lg:p-4 lg:m-auto flex justify-center'>
+                    <div className="lg:col-span-2">
+                        <div className="lg:p-2">Transaction</div>
+                    </div>
+                    <div className="lg:col-span-2">
+                        <div className="lg:p-2">Amount</div>
+                    </div>
+                    <div className="lg:col-span-2">
+                        <div className="lg:p-2">Timestamp</div>
+                    </div>
+                    <div className="lg:col-span-1">
+                        <div className="lg:p-2">Update</div>
+                    </div>
+                    <div className="lg:col-span-1">
+                        <div className="lg:p-2">Delete</div>
                     </div>
                 </div>
-            </section>
+                <div>
+                    <TableData/>
+                </div>
+            </div>
+
         </div>
         <div> <Footer/></div>
        

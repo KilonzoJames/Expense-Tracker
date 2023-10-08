@@ -57,7 +57,7 @@ const handleSubmit = (transactionData) => {
             </ul>
         </div>
         <div 
-            className='text-teal-400 text-5xl cursor-pointer animate-custom-bounce' 
+            className='arrow text-teal-400 text-5xl cursor-pointer' 
             style={{ position: 'fixed', right: '0', bottom: '20px' }}
             onClick={() => animateScroll.scrollToTop()
         }>
