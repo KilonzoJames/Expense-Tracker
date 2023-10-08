@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../styles/Transaction.css'
 import PropTypes from 'prop-types';
 import {FaTimes} from 'react-icons/fa';
@@ -6,24 +6,7 @@ import {FaTimes} from 'react-icons/fa';
 function TransactionForm({handleArrowClick}) {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
-  const [transactions, setTransactions] = useState([]);
 
-
-  useEffect(() => {
-    fetch('https://expense-tracker-web-server.onrender.com/transactions')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setTransactions(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching transactions:', error);
-      });
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

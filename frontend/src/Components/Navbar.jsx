@@ -3,6 +3,7 @@ import Navlinks from './Navlinks'
 import { FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
 import { useTheme } from './ThemeContext';
 import { NavLink } from "react-router-dom";
+import SideNavBar from './SideNavBar';
 
 function Navbar() {
 const { isDarkMode, toggleTheme } = useTheme();
@@ -21,9 +22,9 @@ useEffect(() => {
                     <Navlinks/>
                 <div className='icons lg:hidden flex items-center gap-10 text-4xl p-4' onClick={() => setOpen(!open)}>
                     {open ? (
-                    <FaBars />
-                    ) : (
                     <FaTimes />
+                    ) : (
+                    <FaBars />
                     )}
                 </div>
                 <div className='text-4xl hover:scale-150 transition-all duration-500' onClick={toggleTheme}>
@@ -31,11 +32,7 @@ useEffect(() => {
                 </div>
             </nav>
         </div>
-        <div 
-        className={`lg:hidden bg-slate-400 text-white w-1/2 h-screen lg:h-full gap-24 overflow-y-hidden text-2xl ${open ? 'block' : 'hidden'}`}
-       >      
-            <Navlinks/>
-        </div>
+       <SideNavBar open={open}/>
     </div>
   )
 }
