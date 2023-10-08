@@ -35,19 +35,31 @@ function TableData() {
       }, []);
     
       function deleteTransaction(tran) {
-        return fetch(`https://expense-tracker-web-server.onrender.com/${tran.id}`, { method: "DELETE" })
-         .then(r => {
-          console.log(r);           
-           if (r.ok) {
-                // Request was successful
-                return r.json({message: 'fulfilled'});
+        const transactionId = tran.id;
+
+        return fetch(`https://expense-tracker-web-server.onrender.com/transaction/${transactionId}`, { method: "DELETE" })
+        .then((response) => {
+          if (response.ok) {
+            // Transaction deleted successfully
+            // Find and remove the corresponding div element from the DOM
+            const transactionDiv = document.querySelector(`#transaction-${transactionId}`);
+            if (transactionDiv) {
+              transactionDiv.remove(); // Remove the div element
             } else {
-                // Request returned an error status (e.g., 404 or 500)
-                throw new Error(`Error deleting transaction: ${r.status}`);
+              console.warn(`Transaction div with ID ${transactionId} not found.`);
             }
-        }).then(r=>console.log(r))
-          .catch(() => {console.error("rejected"); 
-          });
+    
+            return response.json();
+          } else {
+            throw new Error(`Error deleting transaction: ${response.status}`);
+          }
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Rejected:", error);
+        });
       }
     return (
     <div className="transaction-list flex flex-wrap text-grey-200">
