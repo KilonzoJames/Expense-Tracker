@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../styles/Transaction.css'
 import PropTypes from 'prop-types';
 
-function TransactionForm({ onSubmit }) {
+function TransactionForm() {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
 
@@ -13,7 +13,7 @@ function TransactionForm({ onSubmit }) {
     const transactionData = { amount: parsedAmount, description, timestamp };
       
     try {
-      const response = await fetch("http://127.0.0.1:5555/transactions", {
+      const response = await fetch("https://expense-tracker-web-server.onrender.com/transactions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -26,7 +26,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///Tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
 app.config['WTF_CSRF_CHECK_DEFAULT']=False
-CORS(app, origins=["http://localhost:5173"], methods=["GET", "POST", "DELETE", "PATCH",], supports_credentials=True)
+CORS(app, origins=["https://an-expense-tracker.onrender.com"], methods=["GET", "POST", "DELETE", "PATCH",], supports_credentials=True)
 ma = Marshmallow(app)
 
 migrate = Migrate(app, db)

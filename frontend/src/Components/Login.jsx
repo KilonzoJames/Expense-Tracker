@@ -33,7 +33,7 @@ function Login({ updateUsername }) {
       'password': password,
     };
     try {
-      const response = await fetch("http://127.0.0.1:5555/Login", {
+      const response = await fetch("https://expense-tracker-web-server.onrender.com/Login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

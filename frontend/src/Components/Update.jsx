@@ -26,7 +26,7 @@ function Update({ tran }) {
     };
   
     try {
-        const response = await fetch(`http://127.0.0.1:5555/transaction/${tran.id}`, {
+        const response = await fetch(`https://expense-tracker-web-server.onrender.com/${tran.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',

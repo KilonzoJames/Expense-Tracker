@@ -47,7 +47,7 @@ function handleSubmit(e) {
         email: dataObject.email
       };
 
-      fetch("http://127.0.0.1:5555/Signup", {
+      fetch("https://expense-tracker-web-server.onrender.com/Signup", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

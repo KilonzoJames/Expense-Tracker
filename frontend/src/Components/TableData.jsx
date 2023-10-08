@@ -19,7 +19,7 @@ function TableData() {
     };
 
     useEffect(() => {
-        fetch('http://127.0.0.1:5555/transactions')
+        fetch('https://expense-tracker-web-server.onrender.com/transactions')
           .then((response) => {
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -35,7 +35,7 @@ function TableData() {
       }, []);
     
       function deleteTransaction(tran) {
-        return fetch(`http://127.0.0.1:5555/transaction/${tran.id}`, { method: "DELETE" })
+        return fetch(`https://expense-tracker-web-server.onrender.com/${tran.id}`, { method: "DELETE" })
          .then(r => {
           console.log(r);           
            if (r.ok) {

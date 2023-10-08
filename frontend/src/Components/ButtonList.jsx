@@ -14,7 +14,7 @@ function ButtonList() {
   console.log(accumulation)
 
   useEffect(() => {
-    fetch(`http://localhost:5555/expenses`)
+    fetch(`https://expense-tracker-web-server.onrender.com/expenses`)
       .then((r) => {
         if (r.ok) {
           return r.json();
@@ -31,7 +31,7 @@ function ButtonList() {
       });
   }, []);   
   useEffect(() => {
-    fetch(`http://localhost:5555/incomes`)
+    fetch(`https://expense-tracker-web-server.onrender.com/incomes`)
       .then((r) => {
         if (r.ok) {
           return r.json();
