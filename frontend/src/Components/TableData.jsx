@@ -53,7 +53,10 @@ function TableData() {
     <div className="transaction-list flex flex-wrap text-grey-200">
       {Array.isArray(transactions) && transactions.length > 0 ? (
         transactions.map((tran, index) => (
-          <div key={index} className="specific border-2 border-cyan-400 rounded-lg m-auto lg:p-4 " style={{ width: '200px', height: '200px' }}>
+          <div key={index} 
+            className={`specific border-2 border-cyan-400 rounded-lg lg:p-4 m-4 lg:m-12 
+            ${tran.amount < 0 ? 'border-red-500' : 'border-green-500' }`}         
+            style={{ width: '200px', height: '200px' }}>
              <div className="grid grid-cols-2 gap-4">
                 {/* First Row */}
                 <div className="transaction-item">
