@@ -4,10 +4,6 @@ import Update from './Update';
 
 function TableData() {
     const [transactions, setTransactions] = useState([]);
-    // const [isFormVisible, setFormVisible] = useState(false);
-    // const toggleFormVisibility = () => {
-    //   setFormVisible(!isFormVisible);
-    // };
     const [visibleFormId, setVisibleFormId] = useState(null);
 
     const toggleFormVisibility = (id) => {
@@ -49,13 +45,15 @@ function TableData() {
               console.warn(`Transaction div with ID ${transactionId} not found.`);
             }
     
+            // Update the state to remove the transaction
+            setTransactions((prevTransactions) =>
+              prevTransactions.filter((transaction) => transaction.id !== transactionId)
+            );
+    
             return response.json();
           } else {
             throw new Error(`Error deleting transaction: ${response.status}`);
           }
-        })
-        .then((data) => {
-          console.log(data);
         })
         .catch((error) => {
           console.error("Rejected:", error);

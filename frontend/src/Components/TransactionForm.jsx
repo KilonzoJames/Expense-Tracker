@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/Transaction.css'
 import PropTypes from 'prop-types';
 import {FaTimes} from 'react-icons/fa';
@@ -6,6 +6,24 @@ import {FaTimes} from 'react-icons/fa';
 function TransactionForm({handleArrowClick}) {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
+  const [transactions, setTransactions] = useState([]);
+
+
+  useEffect(() => {
+    fetch('https://expense-tracker-web-server.onrender.com/transactions')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setTransactions(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching transactions:', error);
+      });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,14 +39,20 @@ function TransactionForm({handleArrowClick}) {
         },
         body: JSON.stringify(transactionData),
       });
-      return response.json().then(responseData => {
-        console.log(responseData);
-        if (response.ok) {
-          console.log("Transaction submitted successfully");
-        } else {
-            throw new Error(`Username or password already registered: ${response.status};`);
-        }
-    });
+
+      if (response.status >= 200 && response.status < 300) {
+      const responseData = await response.json(); // Read the response body once
+      console.log(responseData);
+
+      // Update the list of transactions in state with the new transaction
+      setTransactions((transactions) => [...transactions, responseData]);
+
+      // Clear the input fields after successful submission
+      setAmount('');
+      setDescription('');
+      } else {
+        throw new Error(`Error: HTTP status ${response.status}`);
+      }
     } catch (error) {
       console.error("An error occurred:", error);
     }
