@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import '../styles/Transaction.css'
 import PropTypes from 'prop-types';
+import {FaTimes} from 'react-icons/fa';
 
-function TransactionForm() {
+function TransactionForm({handleArrowClick}) {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
 
@@ -37,7 +38,8 @@ function TransactionForm() {
 
   return (
     <form onSubmit={handleSubmit} className="login-container">
-      <div className="login-header">
+      <div className="login-header relative">
+        <div><FaTimes onClick={handleArrowClick} className='absolute right-0 top-0'/></div>
         <div>Add Transaction</div>
       </div>
       <label htmlFor="amount">Amount</label>

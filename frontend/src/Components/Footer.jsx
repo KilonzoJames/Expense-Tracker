@@ -34,7 +34,7 @@ const handleSubmit = (transactionData) => {
         </div>
         {showForm && 
         <div style={{ position: 'fixed', left: '0', bottom: '20px' }}
-            > <TransactionForm onSubmit={handleSubmit} />
+            > <TransactionForm onSubmit={handleSubmit} onClick={handleArrowClick}/>
         </div>
         }
         <div className="flex justify-center items-center">
