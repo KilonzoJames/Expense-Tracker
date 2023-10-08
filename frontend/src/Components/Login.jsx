@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import '../styles/Login.css'
@@ -169,7 +169,7 @@ function Login({ updateUsername }) {
             </button>
             {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
             <div className="sign-up">
-              Not a member? <a href="/signup">Signup now</a>
+              Not a member? <NavLink to='/signup'>Signup now</NavLink>
             </div>
           </form>
         </div>

@@ -1,6 +1,6 @@
 import '../styles/signUp.css'
 import { useState, useEffect } from 'react';
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate, NavLink } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ReactSwitch from 'react-switch';
 import { useTheme } from './ThemeContext';
@@ -175,7 +175,7 @@ useEffect(() => {
           <button className="submit">Submit</button>
 
           <p className="signin">
-            Already have an account? <a href="/">Sign in</a>
+            Already have an account? <NavLink to='/'>Sign in</NavLink>
           </p>
         </form>
     </div>
