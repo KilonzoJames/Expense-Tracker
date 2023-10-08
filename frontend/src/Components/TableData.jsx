@@ -54,9 +54,9 @@ function TableData() {
       {Array.isArray(transactions) && transactions.length > 0 ? (
         transactions.map((tran, index) => (
           <div key={index} 
-            className={`specific border-2 border-cyan-400 rounded-lg lg:p-4 m-4 lg:m-12 
+            className={`specific border-2 bg-blue-900 font-sans hover:font-serif border-cyan-400 lg:p-4 m-4 lg:m-12 
             ${tran.amount < 0 ? 'border-red-500' : 'border-green-500' }`}         
-            style={{ width: '200px', height: '200px' }}>
+            style={{ width: '200px', height: '200px', borderRadius: '20px' }}>
              <div className="grid grid-cols-2 gap-4">
                 {/* First Row */}
                 <div className="transaction-item">
@@ -65,7 +65,7 @@ function TableData() {
                 </div>
                 <div className="transaction-item">
                   <div className="transaction-label">Amount:</div>
-                  <div className="transaction-value">{tran.amount}</div>
+                  <div className={`transaction-value ${tran.amount < 0 ? 'text-red-500' : 'text-green-500'}`}>{tran.amount}</div>
                 </div>
                 {/* Second Row */}
               <div className="grid grid-cols-1">
@@ -77,7 +77,7 @@ function TableData() {
               </div> 
 
                    {/* Third Row */}
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 mb-[-2px]">
                 <div className="transaction-item">
                   <button
                     onClick={() => toggleFormVisibility(tran.id)}
