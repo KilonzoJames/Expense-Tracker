@@ -22,4 +22,6 @@ function Balance({totalExpenses, totalIncome,accumulation}) {
 export default Balance
 Balance.propTypes = {
     accumulation: PropTypes.number.isRequired,
-  };
+    totalIncome: PropTypes.number.isRequired,
+    totalExpenses: PropTypes.number.isRequired,
+};

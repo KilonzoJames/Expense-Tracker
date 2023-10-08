@@ -5,6 +5,12 @@ function logoutUser() {
     sessionStorage.removeItem('user_id');
     console.log('Logged out');
   }
+  // export const useGetUserInfo = () => {
+  //   const { name, profilePhoto, userID, isAuth } =
+  //     JSON.parse(localStorage.getItem("auth")) || {};
+  
+  //   return { name, profilePhoto, userID, isAuth };
+  // };
 
 function Navlinks() {
     return (
