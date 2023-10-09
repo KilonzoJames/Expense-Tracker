@@ -1,6 +1,7 @@
 import { FaTrash, FaEdit } from 'react-icons/fa'
 import { useState, useEffect } from 'react';
 import Update from './Update';
+import loadingGif from '../assets/ace3091f552eab286fbed6b458812f89.gif';
 
 function TableData() {
     const [transactions, setTransactions] = useState([]);
@@ -120,9 +121,12 @@ function TableData() {
           </div>
         ))
       ) : (
-        <div className="no-transactions">No transactions available.</div>
-      )}
-    </div>
+      /* Conditionally render loading animation or data */
+        <div className="loader-container">
+          <img src={loadingGif} alt="Loading..." />
+        </div>      
+        )}
+      </div>
   );
   }
 
