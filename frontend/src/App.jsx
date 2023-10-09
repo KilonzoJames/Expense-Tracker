@@ -13,7 +13,7 @@ function App() {
   };
 
   return (
-        <Routes>
+        <Routes basename ="/" >
             <Route 
             exact path="/" 
             element={<Login username={username} updateUsername={updateUsername}/> } />
