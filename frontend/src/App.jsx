@@ -1,6 +1,6 @@
 import './App.css'
 import {useState, useEffect} from 'react'
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import Homepage from './Components/Homepage';
@@ -23,8 +23,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter basename="/">
-        <Routes>
+        <Routes basename ="/">  
             <Route 
             exact path="/" 
             element={<Login username={username} updateUsername={updateUsername}/> } />
@@ -38,8 +37,6 @@ function App() {
             path='/history' 
             element={<History username={username}/>} />
         </Routes>
-    </BrowserRouter>
-
   )
 }
 
