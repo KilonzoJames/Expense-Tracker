@@ -7,7 +7,7 @@ function handleLogout() {
     }
 
     return (
-    <div className="hidden lg:flex items-center p-4">
+    <>
         <div className='text-2xl mx-4 py-4 hover:scale-75 transition-all duration-500'>
             <NavLink to='/history' className='hover:shadow-sm'>
                 Home
@@ -23,7 +23,7 @@ function handleLogout() {
                 Log-out
             </NavLink>
         </div>
-    </div>
+    </>
   );
 }
     
