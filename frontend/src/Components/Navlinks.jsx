@@ -1,19 +1,11 @@
 import { NavLink } from 'react-router-dom'
+ 
+function Navlinks({onLogout}) {
+function handleLogout() {
+        fetch("https://expense-tracker-web-server.onrender.com/logout", { method: "DELETE",
+            }).then(() => onLogout());
+    }
 
-function logoutUser() {
-    // Remove the 'user_id' key from session storage to log the user out
-    sessionStorage.removeItem('user_id');
-    console.log('Logged out');
-  }
-  // export const useGetUserInfo = () => {
-  //   const { name, profilePhoto, userID, isAuth } =
-  //     JSON.parse(localStorage.getItem("auth")) || {};
-  
-  //   return { name, profilePhoto, userID, isAuth };
-  // };        // className='lg:hidden'
-
-
-function Navlinks() {
     return (
     <div className="hidden lg:flex items-center p-4">
         <div className='text-2xl mx-4 py-4 hover:scale-75 transition-all duration-500'>
@@ -26,7 +18,7 @@ function Navlinks() {
                 Stats
             </NavLink>
         </div>
-        <div onClick={logoutUser} className='text-2xl mx-4 py-4 hover:scale-75 transition-all duration-500'>
+        <div onClick={handleLogout} className='text-2xl mx-4 py-4 hover:scale-75 transition-all duration-500'>
             <NavLink to='/' className='hover:shadow-sm'>
                 Log-out
             </NavLink>

@@ -5,7 +5,7 @@ import { useTheme } from './ThemeContext';
 import { NavLink } from "react-router-dom";
 import SideNavBar from './SideNavBar';
 
-function Navbar() {
+function Navbar({onLogout}) {
 const { isDarkMode, toggleTheme } = useTheme();
 const [open, setOpen] = useState(false) 
 const modeClass = isDarkMode ? 'dark' : 'light';
@@ -19,7 +19,7 @@ useEffect(() => {
         <div className={modeClass}>
             <nav className='navbar fixed top-0 left-0 w-full h-auto px-12 flex justify-between items-center shadow-md md:shadow-lg lg:shadow-xl'>
                 <NavLink to="/history" className='text-4xl font-bold p-4'>Home</NavLink>
-                    <Navlinks/>
+                    <Navlinks onLogout={onLogout}/>
                 <div className='icons lg:hidden flex items-center gap-10 text-4xl p-4' onClick={() => setOpen(!open)}>
                     {open ? (
                     <FaTimes />

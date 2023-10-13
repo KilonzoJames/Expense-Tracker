@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 import { ThemeProvider } from './ThemeContext';
 
 
-function Homepage({username}) {
+function Homepage({username, onLogout}) {
   return (
     <ThemeProvider>
       <div className='relative'>
-          <Navbar/>
+          <Navbar onLogout={onLogout}/>
           <Name username={username} />
           <ButtonList/>
           <Footer/>

@@ -128,3 +128,39 @@ button {
 .arrow:hover{
   background-color: #1da1f2;
 }
+.navbar {
+  padding: 0 3%;
+  margin-top: -1%;
+  animation: shownav 2s linear;
+}
+/* .form-btn:hover {
+  background: rgb(126, 206, 212);
+  filter: drop-shadow(5px 5px 5px black);
+} */
+/* 
+.content {
+  text-align: center;
+  color: white;
+  padding-bottom: 20px;
+  padding-inline: 10%;
+  border-top-left-radius: 100px;
+} */
+
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  background: -webkit-linear-gradient(left, #bfc7c4, #07f7f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */
+
+
+
+/* bg kiboko #18163c */
+vertical{
+  vertical-align: middle;
+  display: table-cell;
+}

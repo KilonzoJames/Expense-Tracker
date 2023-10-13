@@ -89,7 +89,15 @@ def signIn():
 def logout():
     # Remove the 'user_id' key from the session to log the user out
     session.pop('user_id', None)
-    return 'Logged out'
+    return {}, 204
+@app.route('/check_session')
+def get():
+    user_id = session['user_id']
+    if user_id:
+        user = User.query.filter(User.id == user_id).first()
+        return user.to_dict(), 200
+    
+    return {}, 401
 
 @app.route('/Signup', methods=['POST'])
 def signUp():

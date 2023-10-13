@@ -1,6 +1,6 @@
 import './App.css'
-import {useState} from 'react'
-import { Route, Routes } from "react-router-dom";
+import {useState, useEffect} from 'react'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import Homepage from './Components/Homepage';
@@ -11,9 +11,20 @@ function App() {
   const updateUsername = (newUsername) => {
     setUsername(newUsername);
   };
+  useEffect(() => {
+    fetch("https://expense-tracker-web-server.onrender.com/check_session").then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUsername(user));
+      }
+    });
+  }, []);
+  function handleLogout() {
+    setUsername('');
+  }
 
   return (
-        <Routes basename ="/" >
+    <BrowserRouter basename="/">
+        <Routes>
             <Route 
             exact path="/" 
             element={<Login username={username} updateUsername={updateUsername}/> } />
@@ -22,11 +33,13 @@ function App() {
             element={<SignUp/>} />
             <Route 
             path='/homepage' 
-            element={<Homepage username={username} />} />
+            element={<Homepage username={username} onLogout={handleLogout}/>} />
             <Route 
             path='/history' 
             element={<History username={username}/>} />
         </Routes>
+    </BrowserRouter>
+
   )
 }
 
