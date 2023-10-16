@@ -36,7 +36,7 @@ useEffect(() => {
         <div     
         className={`lg:hidden bg-slate-400 text-white w-1/2 h-screen lg:h-full gap-24 overflow-y-hidden text-2xl ${open ? 'block' : 'hidden'}`}
         >   
-            <Navlinks/>
+            <Navlinks onLogout={onLogout}/>
         </div>
     </div>
   )

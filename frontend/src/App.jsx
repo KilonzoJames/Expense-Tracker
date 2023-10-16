@@ -8,25 +8,33 @@ import History from './Components/History';
 
 function App() {
   const [username, setUsername] = useState("");
+  const [user, setUser] = useState(null);
+
   const updateUsername = (newUsername) => {
     setUsername(newUsername);
   };
+  
   useEffect(() => {
     fetch("https://expense-tracker-web-server.onrender.com/check_session").then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUsername(user));
+        response.json().then((user) => setUser(user));
       }
     });
   }, []);
+
+  function handleLogin(user) {
+    setUser(user);
+  }
+
   function handleLogout() {
-    setUsername('');
+    setUser(null);
   }
 
   return (
         <Routes basename ="/">  
             <Route 
             exact path="/" 
-            element={<Login username={username} updateUsername={updateUsername}/> } />
+            element={<Login username={username} updateUsername={updateUsername} onLogin={handleLogin}/> } />
             <Route 
             path='/signup' 
             element={<SignUp/>} />
