@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, request, session
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -22,7 +23,7 @@ from Models.Config import db
 
 
 app=Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql://kilonzo:lQ1pDUVlYqjTnG2s1pUHAir9W6NryLp9@dpg-ckbcgj6smu8c7398dbhg-a.frankfurt-postgres.render.com/expense_tracker_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.json.compact = False
 app.config['SECRET_KEY'] = 'cwicvecvuvuxvducvgvcuedgcvusvdcuvececdifuvhfu'
